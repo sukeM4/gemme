@@ -1,0 +1,193 @@
+{% extends 'myapp/base.html' %}{% load static %}
+{% block styles %}
+<style>
+    .grid {
+        overflow-x: hidden;
+    }
+    </style>
+{% endblock %}
+{% block main %}
+<div id="main1" class="p-2">
+    <!-- Discover -->
+     <div class="grid">
+        {% for item in items %}
+        <div class="grid-item column">
+            <a href="{% url 'post' item.id %}">
+                <div class="card m-0">
+                    <img class="bd-placeholder-img card-img-top" src="{% if item.img %}{{item.img.url}}{% else %}{{item.img_url}}{% endif %}" alt="">
+                    <div class="card-body p-2">
+                        <p class="card-text">{{item.title|truncatewords:7}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% if items.has_next %}
+        <a class="pagination__next" href="?page={{ items.next_page_number }}"></a>
+        <div class="d-flex justify-content-center" style="display:none;">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        {% endif %}
+</div>
+<div id="main2" style="height:0">
+    <div id="map" style="height:0"></div>
+    {% for item in locants %}
+    <div id="marker{{forloop.counter}}" class="tutorial-component down my-shadow marker" style="position: absolute;">
+        <div class="d-flex m-0" style="width: auto;">
+            <a href="{% url 'post' item.id %}" class="h-100"><img class="h-100" src="{% if item.img %}{{item.img.url}}{% else %}{{item.img_url}}{% endif %}" style="width: auto;"></a>
+            <div class="bg-white h-100 p-2 d-none d-md-block" style="width: auto;">
+                <div class="text-secondary">{{item|truncatewords:7}}</div>
+                <div class="text-center"><a href="{% url 'post' item.id %}" class="text-primary" style="text-decoration: underline;"><span class="badge text-primary bg-light-blue my-round">View</span></a></div>
+            </div>
+        </div>
+    </div>
+    {% endfor%}
+</div>
+{% endblock %}{% block scripts %}
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+<script>
+
+    $('.grid').imagesLoaded()
+        // .always(function(instance) {
+        //     console.log('all images loaded');
+        // })
+        .done(function(instance) {
+            // console.log('all images successfully loaded');
+
+            var elem = document.querySelector('.grid');
+            var msnry = new Masonry(elem, {
+                // options
+                itemSelector: '.grid-item',
+                columnWidth: '.column',
+            });
+            let elem2 = document.querySelector('.grid');
+            let infScroll = new InfiniteScroll(elem2, {
+                // options
+                path: '.pagination__next',
+                append: '.grid-item',
+                history: false,
+                outlayer: msnry,
+            });
+        })
+        .fail(function() {
+            console.log('all images loaded, at least one is broken');
+        })
+        // .progress(function(instance, image) {
+        //     var result = image.isLoaded ? 'loaded' : 'broken';
+        //     console.log('image is ' + result + ' for ' + image.img.src);
+        // });
+
+
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoicHJpczEiLCJhIjoiY2tqd2U5dnN2MGUwdjJwbWx0NDZxaWJqcyJ9.Zvu_Xejr42bcumLw069pqw';
+    var monument = [30.5, 50.5];
+    var map = new mapboxgl.Map({
+        container: 'map',
+        //dark-v10 light-v10 streets-v11 outdoors-v11
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: monument,
+        zoom: 9,
+    });
+    map.scrollZoom.enable();
+    for (i = 1; i <= 9; i++) {
+        // create the marker
+        new mapboxgl.Marker(document.getElementById("marker" + i))
+            .setLngLat([30 + 0.1 * Math.floor(Math.random() * 10), 50 + 0.1 * i])
+            .addTo(map);
+    };
+
+
+    function openMap() {
+        $("#main2").width("100vw");
+        $("#main2").height("100vh");
+        $("#map").width("100vw");
+        $("#map").height("100vh");
+
+        map.resize();
+
+        $('#main1').fadeOut();
+
+        closeMapBtn = $("#btn-sm-close-map")
+        openMapBtn = $("#btn-sm-open-map")
+
+        closeMapBtn.removeClass("bg-dark-gray")
+        openMapBtn.addClass("bg-dark-gray")
+
+        closeMdMapBtn = $("#btn-md-close-map")
+        openMdMapBtn = $("#btn-md-open-map")
+
+        closeMdMapBtn.removeClass("bg-dark-gray text-secondary")
+        openMdMapBtn.addClass("bg-dark-gray text-secondary")
+
+        $.ajax({
+            url: "{% url 'map-state' %}",
+            data: {
+                mapState: "open"
+            }
+        });
+    }
+
+    function closeMap() {
+        $('#main1').fadeIn();
+
+        $("#main2").width(0);
+        $("#main2").height(0);
+        $("#map").width(0);
+        $("#map").height(0);
+
+
+        closeSmMapBtn = $("#btn-sm-close-map")
+        openSmMapBtn = $("#btn-sm-open-map")
+
+        closeSmMapBtn.addClass("bg-dark-gray")
+        openSmMapBtn.removeClass("bg-dark-gray")
+
+        closeMdMapBtn = $("#btn-md-close-map")
+        openMdMapBtn = $("#btn-md-open-map")
+
+        closeMdMapBtn.addClass("bg-dark-gray  text-secondary")
+        openMdMapBtn.removeClass("bg-dark-gray text-secondary")
+
+        $.ajax({
+            url: "{% url 'map-state' %}",
+            data: {
+                mapState: "close"
+            }
+        });
+    }
+
+
+    $(window).ready(function() {
+        $.ajax({
+            url: "{% url 'map-state' %}",
+            data: {},
+            success: function(data) {
+                if (data == "open") {
+                    openMap()
+                } else {
+                    closeMap()
+                }
+
+            }
+        });
+        // $.ajax({
+        //     url: "{% url 'get-coord' %}",
+        //     data: {},
+        //     dataType: 'json',
+        //     success: function(data) {
+        //         lon = data.lon;
+        //         lat = data.lat;
+
+
+        //     }
+        // });
+
+    });
+</script>
+{% endblock %}

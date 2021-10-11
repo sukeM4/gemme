@@ -1,0 +1,120 @@
+{% extends "myapp/base.html" %}{% load static %} {% block styles %}
+<style>
+    @media (min-width: 1200px) {
+        .profile {
+            max-width: 768px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
+    
+    .img-wrapper {
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        overflow: hidden;
+    }
+    
+    .profile-img {
+        /* object-fit: cover;
+        object-position: center right; */
+    }
+</style> {% endblock %}{% block main %}
+<div>
+    <!-- profile -->
+    <div class="p-3 bg-white profile container mb-3">
+        <div class="row">
+            <div class="col-4 col-sm-4 col-md-2">
+                <div class="d-flex" style="align-items: center; justify-content: center;">
+                    <div class="img-wrapper border">
+                        <img class="profile-img" src="{% if user.store.img %}{{user.store.img.url}}{% else %}{% static 'myapp/images/profile.png' %}{% endif %}" alt="">
+                    </div>
+                </div>
+                <div class="text-center mt-2" style="align-items: end; justify-content: center;">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" class="badge text-secondary my-round border-0" style="background-color:  #EEEEEE;"><i class="fa fa-pencil"></i> Edit Profile</a>
+                </div>
+            </div>
+            <div class="col-8 col-sm-8 col-md-6">
+                <div class="h5 text-dark">{{request.user.username}}</div>
+                <div class="d-flex border-bottom">
+                    <div class="">
+                        <button class="circle-btn btn border" style="width: 35px; height: 35px;"><i class="icon-copy fi-telephone circle-btn-item text-primary"></i></button>
+                        <div class="text-secondary text-center"><small>Call</small></div>
+                    </div>
+                    <div class="mx-lg-4 mx-md-3 mx-2">
+                        <button class="circle-btn btn border" style="width: 35px; height: 35px;"><i class="icon-copy fi-bookmark circle-btn-item text-primary"></i></button>
+                        <div class="text-secondary text-center"><small>Website</small></div>
+                    </div>
+                    <div class="">
+                        <button id="location-btn" class="circle-btn btn border" style="width: 35px; height: 35px;"><i class="icon-copy ion-location circle-btn-item text-primary"></i></button>
+                        <div class="text-muted text-center"><small>Location</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <div class="d-flex m-2" style="align-items: center; justify-content: center;">
+                    <div class="d-flex">
+                        <div class="h1">{{user.store.item_set.all.count}}</div>
+                        <div class="text-muted font-14 d-flex px-2"><small class="mt-auto mb-3">posts</small></div>
+                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#postModal" class="btn badge text-primary bg-light-blue my-round border-0"><i class="icon-copy fi-plus"></i> Post</a>
+                    <!--<button class="btn badge text-primary bg-light-blue my-round border-0"><i class="icon-copy fi-plus"></i> Post</button>-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--modals-->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <div class="modal-title h5" id="editModalLabel"><i class="fa fa-pencil"></i> Edit Profile</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3" style="text-align: start;">
+                        <label class="form-label" for="customFile">Profile Image</label>
+                        <input type="file" class="form-control" id="customFile" name="profile-img">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="edit-profile">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <div class="modal-title h5" id="editModalLabel"><i class="fa fa-pencil"></i> Edit Profile</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3" style="text-align: start;">
+                        <label class="form-label" for="customFile">Profile Image</label>
+                        <input type="file" class="form-control mb-1" id="customFile" name="post-img">
+                        <input type="text" class="form-control mb-1" name="post-description" placeholder="Description">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="post">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

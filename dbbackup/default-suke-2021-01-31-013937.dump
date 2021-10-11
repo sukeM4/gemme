@@ -1,0 +1,1095 @@
+CREATE TABLE IF NOT EXISTS "auth_group" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(150) NOT NULL UNIQUE);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "auth_group_permissions" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "group_id" integer NOT NULL REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED, "permission_id" integer NOT NULL REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "auth_permission" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "content_type_id" integer NOT NULL REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED, "codename" varchar(100) NOT NULL, "name" varchar(255) NOT NULL);
+INSERT INTO "auth_permission" VALUES(1,1,'add_logentry','Can add log entry');
+INSERT INTO "auth_permission" VALUES(2,1,'change_logentry','Can change log entry');
+INSERT INTO "auth_permission" VALUES(3,1,'delete_logentry','Can delete log entry');
+INSERT INTO "auth_permission" VALUES(4,1,'view_logentry','Can view log entry');
+INSERT INTO "auth_permission" VALUES(5,2,'add_permission','Can add permission');
+INSERT INTO "auth_permission" VALUES(6,2,'change_permission','Can change permission');
+INSERT INTO "auth_permission" VALUES(7,2,'delete_permission','Can delete permission');
+INSERT INTO "auth_permission" VALUES(8,2,'view_permission','Can view permission');
+INSERT INTO "auth_permission" VALUES(9,3,'add_group','Can add group');
+INSERT INTO "auth_permission" VALUES(10,3,'change_group','Can change group');
+INSERT INTO "auth_permission" VALUES(11,3,'delete_group','Can delete group');
+INSERT INTO "auth_permission" VALUES(12,3,'view_group','Can view group');
+INSERT INTO "auth_permission" VALUES(13,4,'add_user','Can add user');
+INSERT INTO "auth_permission" VALUES(14,4,'change_user','Can change user');
+INSERT INTO "auth_permission" VALUES(15,4,'delete_user','Can delete user');
+INSERT INTO "auth_permission" VALUES(16,4,'view_user','Can view user');
+INSERT INTO "auth_permission" VALUES(17,5,'add_contenttype','Can add content type');
+INSERT INTO "auth_permission" VALUES(18,5,'change_contenttype','Can change content type');
+INSERT INTO "auth_permission" VALUES(19,5,'delete_contenttype','Can delete content type');
+INSERT INTO "auth_permission" VALUES(20,5,'view_contenttype','Can view content type');
+INSERT INTO "auth_permission" VALUES(21,6,'add_session','Can add session');
+INSERT INTO "auth_permission" VALUES(22,6,'change_session','Can change session');
+INSERT INTO "auth_permission" VALUES(23,6,'delete_session','Can delete session');
+INSERT INTO "auth_permission" VALUES(24,6,'view_session','Can view session');
+INSERT INTO "auth_permission" VALUES(25,7,'add_caption','Can add caption');
+INSERT INTO "auth_permission" VALUES(26,7,'change_caption','Can change caption');
+INSERT INTO "auth_permission" VALUES(27,7,'delete_caption','Can delete caption');
+INSERT INTO "auth_permission" VALUES(28,7,'view_caption','Can view caption');
+INSERT INTO "auth_permission" VALUES(29,8,'add_profile','Can add profile');
+INSERT INTO "auth_permission" VALUES(30,8,'change_profile','Can change profile');
+INSERT INTO "auth_permission" VALUES(31,8,'delete_profile','Can delete profile');
+INSERT INTO "auth_permission" VALUES(32,8,'view_profile','Can view profile');
+INSERT INTO "auth_permission" VALUES(33,9,'add_item','Can add item');
+INSERT INTO "auth_permission" VALUES(34,9,'change_item','Can change item');
+INSERT INTO "auth_permission" VALUES(35,9,'delete_item','Can delete item');
+INSERT INTO "auth_permission" VALUES(36,9,'view_item','Can view item');
+INSERT INTO "auth_permission" VALUES(37,10,'add_caption','Can add caption');
+INSERT INTO "auth_permission" VALUES(38,10,'change_caption','Can change caption');
+INSERT INTO "auth_permission" VALUES(39,10,'delete_caption','Can delete caption');
+INSERT INTO "auth_permission" VALUES(40,10,'view_caption','Can view caption');
+INSERT INTO "auth_permission" VALUES(41,11,'add_item','Can add item');
+INSERT INTO "auth_permission" VALUES(42,11,'change_item','Can change item');
+INSERT INTO "auth_permission" VALUES(43,11,'delete_item','Can delete item');
+INSERT INTO "auth_permission" VALUES(44,11,'view_item','Can view item');
+INSERT INTO "auth_permission" VALUES(45,12,'add_profile','Can add profile');
+INSERT INTO "auth_permission" VALUES(46,12,'change_profile','Can change profile');
+INSERT INTO "auth_permission" VALUES(47,12,'delete_profile','Can delete profile');
+INSERT INTO "auth_permission" VALUES(48,12,'view_profile','Can view profile');
+INSERT INTO "auth_permission" VALUES(49,13,'add_tag','Can add tag');
+INSERT INTO "auth_permission" VALUES(50,13,'change_tag','Can change tag');
+INSERT INTO "auth_permission" VALUES(51,13,'delete_tag','Can delete tag');
+INSERT INTO "auth_permission" VALUES(52,13,'view_tag','Can view tag');
+INSERT INTO "auth_permission" VALUES(53,14,'add_url','Can add url');
+INSERT INTO "auth_permission" VALUES(54,14,'change_url','Can change url');
+INSERT INTO "auth_permission" VALUES(55,14,'delete_url','Can delete url');
+INSERT INTO "auth_permission" VALUES(56,14,'view_url','Can view url');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "auth_user" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "password" varchar(128) NOT NULL, "last_login" datetime NULL, "is_superuser" bool NOT NULL, "username" varchar(150) NOT NULL UNIQUE, "last_name" varchar(150) NOT NULL, "email" varchar(254) NOT NULL, "is_staff" bool NOT NULL, "is_active" bool NOT NULL, "date_joined" datetime NOT NULL, "first_name" varchar(150) NOT NULL);
+INSERT INTO "auth_user" VALUES(1,'pbkdf2_sha256$216000$wlwe1VeV9xVn$b2ODnZXXO7sPWcD0Uc96caVWXp5LQPguDiTJdvL+24M=','2021-01-22 12:48:04.339384',1,'suke','','masuke.mbosela@gmail.com',1,1,'2021-01-22 12:47:42.354776','');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "auth_user_groups" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED, "group_id" integer NOT NULL REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "auth_user_user_permissions" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED, "permission_id" integer NOT NULL REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "django_admin_log" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "action_time" datetime NOT NULL, "object_id" text NULL, "object_repr" varchar(200) NOT NULL, "change_message" text NOT NULL, "content_type_id" integer NULL REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED, "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED, "action_flag" smallint unsigned NOT NULL CHECK ("action_flag" >= 0));
+INSERT INTO "django_admin_log" VALUES(1,'2021-01-22 13:19:56.824434','1','Item object (1)','[{"added": {}}]',9,1,1);
+INSERT INTO "django_admin_log" VALUES(2,'2021-01-22 13:46:58.120911','2','CHIPSI MAYAI','[{"added": {}}]',9,1,1);
+INSERT INTO "django_admin_log" VALUES(3,'2021-01-22 13:50:46.856796','3','FANTA ORANGE','[{"added": {}}]',9,1,1);
+INSERT INTO "django_admin_log" VALUES(4,'2021-01-22 13:57:17.201684','4','SPRITE','[{"added": {}}]',9,1,1);
+INSERT INTO "django_admin_log" VALUES(5,'2021-01-22 13:58:03.976738','5','FANTA ORANGE','[{"added": {}}]',9,1,1);
+INSERT INTO "django_admin_log" VALUES(6,'2021-01-22 13:58:32.219334','6','JUICE YA MIWA','[{"added": {}}]',9,1,1);
+INSERT INTO "django_admin_log" VALUES(7,'2021-01-25 19:18:35.247192','7','EBBY_BRAND','[{"added": {}}]',9,1,1);
+INSERT INTO "django_admin_log" VALUES(8,'2021-01-25 19:19:20.365103','7','PHONE AND LAPTOP COVERS','[{"changed": {"fields": ["Title"]}}]',9,1,2);
+INSERT INTO "django_admin_log" VALUES(9,'2021-01-27 11:25:13.840862','7','PHONE AND LAPTOP COVERS','[{"changed": {"fields": ["Url"]}}]',9,1,2);
+INSERT INTO "django_admin_log" VALUES(10,'2021-01-27 11:48:00.318349','5','FANTA ORANGE','[{"changed": {"fields": ["Is sold"]}}]',9,1,2);
+INSERT INTO "django_admin_log" VALUES(11,'2021-01-27 11:48:07.030152','4','SPRITE','[{"changed": {"fields": ["Is sold"]}}]',9,1,2);
+INSERT INTO "django_admin_log" VALUES(12,'2021-01-27 11:48:16.721758','3','FANTA ORANGE','[{"changed": {"fields": ["Is sold"]}}]',9,1,2);
+INSERT INTO "django_admin_log" VALUES(13,'2021-01-27 13:24:02.293813','7','PHONE AND LAPTOP COVERS','[{"changed": {"fields": ["Img url"]}}]',9,1,2);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "django_content_type" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app_label" varchar(100) NOT NULL, "model" varchar(100) NOT NULL);
+INSERT INTO "django_content_type" VALUES(1,'admin','logentry');
+INSERT INTO "django_content_type" VALUES(2,'auth','permission');
+INSERT INTO "django_content_type" VALUES(3,'auth','group');
+INSERT INTO "django_content_type" VALUES(4,'auth','user');
+INSERT INTO "django_content_type" VALUES(5,'contenttypes','contenttype');
+INSERT INTO "django_content_type" VALUES(6,'sessions','session');
+INSERT INTO "django_content_type" VALUES(7,'myapp','caption');
+INSERT INTO "django_content_type" VALUES(8,'myapp','profile');
+INSERT INTO "django_content_type" VALUES(9,'myapp','item');
+INSERT INTO "django_content_type" VALUES(10,'myapp2','caption');
+INSERT INTO "django_content_type" VALUES(11,'myapp2','item');
+INSERT INTO "django_content_type" VALUES(12,'myapp2','profile');
+INSERT INTO "django_content_type" VALUES(13,'myapp2','tag');
+INSERT INTO "django_content_type" VALUES(14,'myapp2','url');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "django_migrations" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app" varchar(255) NOT NULL, "name" varchar(255) NOT NULL, "applied" datetime NOT NULL);
+INSERT INTO "django_migrations" VALUES(1,'contenttypes','0001_initial','2021-01-14 11:09:44.554273');
+INSERT INTO "django_migrations" VALUES(2,'auth','0001_initial','2021-01-14 11:09:44.602303');
+INSERT INTO "django_migrations" VALUES(3,'admin','0001_initial','2021-01-14 11:09:44.636349');
+INSERT INTO "django_migrations" VALUES(4,'admin','0002_logentry_remove_auto_add','2021-01-14 11:09:44.700382');
+INSERT INTO "django_migrations" VALUES(5,'admin','0003_logentry_add_action_flag_choices','2021-01-14 11:09:44.736386');
+INSERT INTO "django_migrations" VALUES(6,'contenttypes','0002_remove_content_type_name','2021-01-14 11:09:44.792403');
+INSERT INTO "django_migrations" VALUES(7,'auth','0002_alter_permission_name_max_length','2021-01-14 11:09:44.827209');
+INSERT INTO "django_migrations" VALUES(8,'auth','0003_alter_user_email_max_length','2021-01-14 11:09:44.864608');
+INSERT INTO "django_migrations" VALUES(9,'auth','0004_alter_user_username_opts','2021-01-14 11:09:44.909688');
+INSERT INTO "django_migrations" VALUES(10,'auth','0005_alter_user_last_login_null','2021-01-14 11:09:44.959298');
+INSERT INTO "django_migrations" VALUES(11,'auth','0006_require_contenttypes_0002','2021-01-14 11:09:44.968065');
+INSERT INTO "django_migrations" VALUES(12,'auth','0007_alter_validators_add_error_messages','2021-01-14 11:09:45.020105');
+INSERT INTO "django_migrations" VALUES(13,'auth','0008_alter_user_username_max_length','2021-01-14 11:09:45.056120');
+INSERT INTO "django_migrations" VALUES(14,'auth','0009_alter_user_last_name_max_length','2021-01-14 11:09:45.088107');
+INSERT INTO "django_migrations" VALUES(15,'auth','0010_alter_group_name_max_length','2021-01-14 11:09:45.124107');
+INSERT INTO "django_migrations" VALUES(16,'auth','0011_update_proxy_permissions','2021-01-14 11:09:45.148108');
+INSERT INTO "django_migrations" VALUES(17,'auth','0012_alter_user_first_name_max_length','2021-01-14 11:09:45.192125');
+INSERT INTO "django_migrations" VALUES(18,'sessions','0001_initial','2021-01-14 11:09:45.208122');
+INSERT INTO "django_migrations" VALUES(19,'myapp','0001_initial','2021-01-14 11:18:29.795213');
+INSERT INTO "django_migrations" VALUES(20,'myapp','0002_item','2021-01-22 12:49:58.575332');
+INSERT INTO "django_migrations" VALUES(21,'myapp','0003_auto_20210122_1608','2021-01-22 13:08:42.488824');
+INSERT INTO "django_migrations" VALUES(22,'myapp','0004_auto_20210122_1648','2021-01-22 13:48:46.861114');
+INSERT INTO "django_migrations" VALUES(23,'myapp','0005_auto_20210125_2214','2021-01-25 19:14:36.229936');
+INSERT INTO "django_migrations" VALUES(24,'myapp','0006_auto_20210125_2218','2021-01-25 19:18:23.120853');
+INSERT INTO "django_migrations" VALUES(25,'myapp','0007_auto_20210127_1447','2021-01-27 11:47:17.573171');
+INSERT INTO "django_migrations" VALUES(26,'myapp','0008_auto_20210128_1109','2021-01-28 08:09:32.049456');
+INSERT INTO "django_migrations" VALUES(27,'myapp2','0001_initial','2021-01-28 15:24:24.822273');
+INSERT INTO "django_migrations" VALUES(28,'myapp2','0002_auto_20210128_1945','2021-01-28 16:45:17.203763');
+INSERT INTO "django_migrations" VALUES(29,'myapp2','0003_auto_20210130_2052','2021-01-30 17:52:42.394320');
+INSERT INTO "django_migrations" VALUES(30,'myapp2','0004_auto_20210130_2234','2021-01-30 19:34:37.477442');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "django_session" ("session_key" varchar(40) NOT NULL PRIMARY KEY, "session_data" text NOT NULL, "expire_date" datetime NOT NULL);
+INSERT INTO "django_session" VALUES('q212t7kvve0wmuu3p6k7wzfiqs1v7skm','.eJxVjEEOwiAQRe_C2hAGKLQu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWIE6_G2F8pLoDvmO9NRlbXZeZ5K7Ig3Z5bZyel8P9OyjYy7eOCtnyCF5FAszZkiKTB8LJePQYjSPWCJadduxy0npwkOM0msSgMoj3BwrcOKQ:1l2vrA:YWll5TtA6aK7DniLkXJg0ShBfgT_jjUPzps9HGddkv0','2021-02-05 12:48:04.347386');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp2_caption" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "text" text NOT NULL);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp2_item" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(200) NOT NULL, "location" varchar(50) NOT NULL, "url" varchar(200) NULL, "img_url" varchar(200) NULL, "contact" varchar(50) NOT NULL, "description" varchar(100) NOT NULL, "is_sold" bool NOT NULL, "img" varchar(100) NULL);
+INSERT INTO "myapp2_item" VALUES(112,'SWIPE LEFT⬅️⬅️⬅️⬅️
+✅Saa, bracelate na cheni
+✅Vyote bei 65,000/= tu
+✅Call/whatsap 0712255200
+🚚Deliveryipo
+📦Mkoani tunatuma kwa bei nafuu
+Ukiweka kwenye box inapendeza zaidi
+Bei ya box inategemea kuna kwanzia elfu tano na kuendelea','','https://www.instagram.com/p/CKpHY0gnirR/',NULL,'','',0,'images/2021/01/31/item112_ZSP7ITp.png');
+INSERT INTO "myapp2_item" VALUES(113,'SWIPE LEFT ⬅️⬅️⬅️⬅️⬅️
+Bracelate available 20,000/= tu
+Delivers exclusive
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKpHNCdHMXv/',NULL,'','',0,'images/2021/01/31/item113_0mshGsp.png');
+INSERT INTO "myapp2_item" VALUES(114,'SWIPE LEFT⬅️⬅️⬅️
+Rolex moja 35,000/= tu
+Zote mbili 65,000/= tu','','https://www.instagram.com/p/CKnywMqn-Ax/',NULL,'','',0,'images/2021/01/31/item114_EnIHUmz.png');
+INSERT INTO "myapp2_item" VALUES(115,'SWIPE LEFT⬅️⬅️⬅️
+LADIES WATCHES
+Stoned ones zinavimeto meto🥰🥰
+Price 45,000/= tu
+Delivery free kwa dsm
+Mikoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKmOtc3n80c/',NULL,'','',0,'images/2021/01/31/item115.png');
+INSERT INTO "myapp2_item" VALUES(116,'SWIPE LEFT⬅️⬅️⬅️⬅️
+Saa za kike available
+Price 45,000/= tu
+Delivery free
+Mkoani tunatuma pia
+Karibuni sana','','https://www.instagram.com/p/CKmN_J3ncbF/',NULL,'','',0,'images/2021/01/31/item116.png');
+INSERT INTO "myapp2_item" VALUES(117,'SWIPE LEFT⬅️⬅️⬅️
+CASIO VINTAGE UNISEX WATCH
+✅BEI: TSHS 55,000/=Full Boxed
+✅MODEL: GOLD/SILVER/BLUE/ROSE GOLD/PURPLE
+✅WATER RESISTANCE: 10ATM
+✅MIKANDA: stainless steel
+✅BODY: STAINLESS STEEL
+🚚Delivery: Bure in Dar es Salaam
+📦Mikoani Tunatuma kwa Gharama nafuu.
+☎️Call/whatsap 0712255200','','https://www.instagram.com/p/CKlJfP9HIep/',NULL,'','',0,'images/2021/01/31/item117.png');
+INSERT INTO "myapp2_item" VALUES(118,'SWIPE LEFT⬅️⬅️⬅️⬅️⬅️
+✅Wallet 25,000/=
+✅Ni Leather nzuri na ni imara
+✅Keyholder 20,000
+Unaeza ukaandikiwa maneno yoyote kwenye keyholder au wallet
+Toa oda siku moja kabla
+🚚Delivery exclusive
+📦Mkoani tunatuma kwa bei nafuu
+☎️Call/whatsap 0712255200i','','https://www.instagram.com/p/CKk0c-inckZ/',NULL,'','',0,'images/2021/01/31/item118.png');
+INSERT INTO "myapp2_item" VALUES(119,'✅Wallet 25,000/=
+✅Ni Leather nzuri na ni imara
+✅Keyholder 20,000
+Unaeza ukaandikiwa maneno yoyote kwenye keyholder au wallet
+Toa oda siku moja kabla
+🚚Delivery exclusive
+📦Mkoani tunatuma kwa bei nafuu
+☎️Call/whatsap 0712255200i','','https://www.instagram.com/p/CKk0PGSncUp/',NULL,'','',0,'images/2021/01/31/item119.png');
+INSERT INTO "myapp2_item" VALUES(120,'Saa, bracelate na cheni
+Vyote 65,000/= tu
+Call/whatsap 0712255200
+Delovery ipo
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKkxDS7nMIf/',NULL,'','',0,'images/2021/01/31/item120.png');
+INSERT INTO "myapp2_item" VALUES(121,'Golden hour watch
+Price 75,000/= tu
+✅Hizi saa mikanda yake ni migumu mnoo
+Wale ambao wanaogopa mikanda kukatika wachukue hii saa
+✅Digital plus watch ya kawaida
+✅Ni imara sana
+✅ one year waranty
+✅Delivery free
+✅mkoani tunatuma kwa bei nafuu
+☎️call/whatsap 071225200','','https://www.instagram.com/p/CKidhFRHGek/',NULL,'','',0,'images/2021/01/31/item121.png');
+INSERT INTO "myapp2_item" VALUES(122,'Orginal version AP watch
+Price 250,000/=
+Haipauki, haichubuki
+2years waranty
+Call/whatasap 0712255200
+__________________________________________
+NB zipo pia za kawaida kwa bei nafuu','','https://www.instagram.com/p/CKibgErnxVE/',NULL,'','',0,'images/2021/01/31/item122.png');
+INSERT INTO "myapp2_item" VALUES(123,'SWIPE LEFT ⬅️⬅️⬅️⬅️⬅️⬅️
+COUPLE RADO
+Rado za kawaida zimerudi tena
+Price yake ni elfu 45,000/= tu kwa moja
+Kwa zote mbili 80,000/=
+Ni nzuri na zipo nyingi karibuni
+Delivery free mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200
+___________________________________________
+NB. Rado zinatofautiana bei kulingana na quality yake ndo maana huku kwenye page yangu kuna badi za 120,000
+Ambao wanazijua rado wanaelewa
+Karibuni sanaaa','','https://www.instagram.com/p/CKiYHy5ngED/',NULL,'','',0,'images/2021/01/31/item123.png');
+INSERT INTO "myapp2_item" VALUES(124,'SWIPE LEFT ⬅️⬅️⬅️⬅️⬅️⬅️
+COUPLE RADO
+Rado za kawaida zimerudi tena
+Price yake ni elfu 45,000/= tu kwa moja
+Kwa zote mbili 80,000/=
+Ni nzuri na zipo nyingi karibuni
+Delivery free mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200
+___________________________________________
+NB. Rado zinatofautiana bei kulingana na quality yake ndo maana huku kwenye page yangu kuna badi za 120,000
+Ambao wanazijua rado wanaelewa
+Karibuni sanaaa','','https://www.instagram.com/p/CKiYBIdHJRF/',NULL,'','',0,'images/2021/01/31/item124.png');
+INSERT INTO "myapp2_item" VALUES(125,'SWIPE LEFT ⬅️⬅️⬅️⬅️⬅️⬅️
+COUPLE RADO
+Rado za kawaida zimerudi tena
+Price yake ni elfu 45,000/= tu kwa moja
+Kwa zote mbili 80,000/=
+Ni nzuri na zipo nyingi karibuni
+Delivery free mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200
+___________________________________________
+NB. Rado zinatofautiana bei kulingana na quality yake ndo maana huku kwenye page yangu kuna badi za 120,000
+Ambao wanazijua rado wanaelewa
+Karibuni sanaaa','','https://www.instagram.com/p/CKiXzNTHOci/',NULL,'','',0,'images/2021/01/31/item125.png');
+INSERT INTO "myapp2_item" VALUES(126,'SWIPE LEFT⬅️⬅️⬅️⬅️
+Stoned rolex 40,000/= tu
+Call/whatsap 0712255200
+Karibuni sana
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKgdbSvnc-i/',NULL,'','',0,'images/2021/01/31/item126.png');
+INSERT INTO "myapp2_item" VALUES(127,'SWIPE LEFT⬅️⬅️⬅️⬅️
+Golden hour (GH)
+Bei 75,000/= tu
+—————————————————-
+Ni kubwa
+Stainless steel
+Mikanda haipauki
+Digital watch pia
+Waranty one year
+Delivery free kwa dsm
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKf7409HeHN/',NULL,'','',0,'images/2021/01/31/item127.png');
+INSERT INTO "myapp2_item" VALUES(128,'Package zote zinafanyika
+Kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKfxXiHnMu5/',NULL,'','',0,'images/2021/01/31/item128.png');
+INSERT INTO "myapp2_item" VALUES(129,'Swipe left⬅️⬅️⬅️⬅️⬅️
+Full set 65,000/= tu
+Saa rolex, cheni, na hereni
+Delivery free
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKdYzqunRC4/',NULL,'','',0,'images/2021/01/31/item129.png');
+INSERT INTO "myapp2_item" VALUES(130,'Swipe left ⬅️⬅️⬅️⬅️
+Package elfu 80,000/= tu
+Ina smart watch
+Alafu ina boxa maua
+Karibuni
+Free deilivery
+Mkoani tunatuma kwa bei nafuu
+——————————————————————————-
+
+Smart watch iliyopo humo ndani sifa zake✅
+(android na Apple zote zinakubali)
+inaonyesha muda kama kawaida
+inanotify sms na calls,Whatsapp
+insta na apps zingine
+inapima pressure
+calories ulizoburn
+distance
+steps
+water resistant 30m
+———————————————————
+Hii model japo hueki simcard ila unaeza ukapiga na kupokea km kawaida
+—————————————————-
+
+Model X7 : Color ziko blue, black, pink na white
+——————————————————-
+
+package yake inainclude box na user manual','','https://www.instagram.com/p/CKdEeA4nsXq/',NULL,'','',0,'images/2021/01/31/item130.png');
+INSERT INTO "myapp2_item" VALUES(131,'Customer feed back
+Karibu tena boss
+______________________________________
+Swipe left ⬅️⬅️⬅️⬅️⬅️
+For more good choices
+Karibuni sana','','https://www.instagram.com/p/CKbMQnOHMun/',NULL,'','',0,'images/2021/01/31/item131.png');
+INSERT INTO "myapp2_item" VALUES(132,'Patteck phillipe
+Price 65,000/= tu
+Hizi ni za kawaida
+Sio automatic, zinatumia battery
+Deilivery free
+Mkoani tunatuma kwa bei rahisi','','https://www.instagram.com/p/CKa7DULHl4L/',NULL,'','',0,'images/2021/01/31/item132.png');
+INSERT INTO "myapp2_item" VALUES(133,'SWIPE LEFT ⬅️⬅️⬅️⬅️⬅️⬅️⬅️
+leo nimetoa zawadi kwa wateja wangu
+Wanaotumia voda
+Ingiza vocha upate salio lako uendelee kuperezi kwenye page yetu kwa ajili ya updates za saa nzuri
+___________________________________________
+Zawadi zinaendelea kesho tena tutaeka mtandao mwingine
+Karibuni sana only @watches_store_tz','','https://www.instagram.com/p/CKZmq-eHy43/',NULL,'','',0,'images/2021/01/31/item133.png');
+INSERT INTO "myapp2_item" VALUES(134,'Black naviforce
+Price 65,000/= tu
+Call/whatsap 0712255200
+Delivery popote
+Mkoani tunatuma kaa bei nafuu
+Karibuni','','https://www.instagram.com/p/CKZLVdIHSgv/',NULL,'','',0,'images/2021/01/31/item134.png');
+INSERT INTO "myapp2_item" VALUES(135,'Rolex 35,000/= tu
+Call whatsap 071225200
+Delivery ipo Free
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKYkvcjnp37/',NULL,'','',0,'images/2021/01/31/item135.png');
+INSERT INTO "myapp2_item" VALUES(136,'Disel 65,000/= only
+——————————————————
+Call/whatsap 0712255200
+Mikanda imara, migumu
+Kuna kubwa na ndogo
+Unisex inaeza kuvaliwa na mtu yoyote
+Ni nzuri kama inaonekena kwenye picha
+Karibuni sana
+Delivery ipo mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKYc79VHOrH/',NULL,'','',0,'images/2021/01/31/item136.png');
+INSERT INTO "myapp2_item" VALUES(137,'MINIFOCUS LADY WATCH
+Bei 65,000/= tu
+WATER RESISTANCE: 3ATM
+MIKANDA: stainless steel
+BODY: STAINLESS STEEL
+Delivery: Bure in Dar es Salaam, Mikoani Tunatuma kwa Gharama nafuu.
+☎️call/whatsap 0712255200','','https://www.instagram.com/p/CKYUtrrnAzq/',NULL,'','',0,'images/2021/01/31/item137.png');
+INSERT INTO "myapp2_item" VALUES(138,'SWIPE LEFT ⬅️⬅️⬅️⬅️
+Stoned rolex 40,000/=
+Call/whatsap 0712255200
+Delivery ipo
+Mkoani ni bei nafuu','','https://www.instagram.com/p/CKX8fren6iu/',NULL,'','',0,'images/2021/01/31/item138.png');
+INSERT INTO "myapp2_item" VALUES(139,'Package yote hii
+Price yake 45,000/=
+Box ina saa ,wallet na maua
+Free delivery
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKWXAH9H3oo/',NULL,'','',0,'images/2021/01/31/item139.png');
+INSERT INTO "myapp2_item" VALUES(140,'Golden hour
+Price 75,000/= tu
+Ni kubwa
+Nzito
+Imara
+Mikanda ni migumu kukatika
+It has digital and its also has stop watch
+___________________________________________
+Call/whatsap 0712255200
+Mzigo tunadeliver bure
+Mkoani tunatuma kwa bei nafuu
+Karibuni','','https://www.instagram.com/p/CKWHKyVnFmT/',NULL,'','',0,'images/2021/01/31/item140.png');
+INSERT INTO "myapp2_item" VALUES(141,'Swipe left⬅️⬅️⬅️⬅️⬅️⬅️
+Disel nzuri unisex
+Price 65,000/= tu
+———————————————————————
+Haichubuki
+Size ndogo na kubwa zote zipo
+Mikanda migumu ya leather
+Inaonyesha muda, tarehe na siku
+Delivery free
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKUeaTcHsU5/',NULL,'','',0,'images/2021/01/31/item141.png');
+INSERT INTO "myapp2_item" VALUES(142,'Frank muller
+Price 75,000/=tu
+Delivery free
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKUd-9yHqNG/',NULL,'','',0,'images/2021/01/31/item142.png');
+INSERT INTO "myapp2_item" VALUES(143,'Rado 75,000/= tu
+Unisex mtu yoyote anavaa
+Medium size
+Haipauki
+Water resitance
+Delivery tunafanya pia
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKTjeqknOVp/',NULL,'','',0,'images/2021/01/31/item143.png');
+INSERT INTO "myapp2_item" VALUES(144,'Golden hour blue color
+Price: Tsh 75,000/=
+Saa nzito nzuri
+Mikanda yake iko imara na haipauki
+Delivery free kwa dsm
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKQu3ZRn772/',NULL,'','',0,'images/2021/01/31/item144.png');
+INSERT INTO "myapp2_item" VALUES(145,'Temporary post
+Kuna fridge linauzwa
+Price 250,000/=
+Lipo mikocheni
+Juu fridge china frizer
+Anayehitaji
+Call/text 0712255200','','https://www.instagram.com/p/CKQoRciHOTD/',NULL,'','',0,'images/2021/01/31/item145.png');
+INSERT INTO "myapp2_item" VALUES(146,'Wallet elfu 10,000/= tu
+________________________________________
+Kwanzia pc 6 elfu 8,000
+Unaeza ukaeka kwenye box la saa
+Karibuni
+Delivery excluded unless kama umeagiza na kitu kingine kama saa
+Karibuni mikoani tuntuma kwa bei nafuu','','https://www.instagram.com/p/CKQVP42HzFd/',NULL,'','',0,'images/2021/01/31/item146.png');
+INSERT INTO "myapp2_item" VALUES(147,'NAVIFORCE NZITO
+Price 65,000/=
+Mikanda ya chuma
+Haipauki
+Delivery free mkoani tunatuma kwa bei nafuu💃💃💃💃
+Call/whatsap 071225500','','https://www.instagram.com/p/CKQU5swH7UE/',NULL,'','',0,'images/2021/01/31/item147.png');
+INSERT INTO "myapp2_item" VALUES(148,'SWIPE LEFT⬅️⬅️⬅️⬅️⬅️
+Valentine inakaribia
+Key holder ni elfu 20,000
+Delivery excluded
+Tunaandika maneno yoyote unayotaka wewe
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKQUrudHSbL/',NULL,'','',0,'images/2021/01/31/item148.png');
+INSERT INTO "myapp2_item" VALUES(149,'Swipe left ⬅️⬅️⬅️
+Blue Mini Focus
+Price 65,000/= tu
+Mikanda ya ngozi imara
+Mishale yote inafanya kazi
+Free delivery
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKQUXyWnUbq/',NULL,'','',0,'images/2021/01/31/item149.png');
+INSERT INTO "myapp2_item" VALUES(150,'Golden hour
+Price: Tsh 75,000/=
+Saa nzito nzuri
+Mikanda yake iko imara na haipauki
+Delivery free kwa dsm
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKQUANNHJj_/',NULL,'','',0,'images/2021/01/31/item150.png');
+INSERT INTO "myapp2_item" VALUES(151,'Unique rolex black ones
+Price 55,000/= tu
+Haipauki
+Inaonyesha muda, tarehe,siku / muda na siku .........
+Delivery dsm unapata bure mkoani tunatuma kwa bei nafuu
+Call/whatsap 071255200','','https://www.instagram.com/p/CKPlpW1jD0n/',NULL,'','',0,'images/2021/01/31/item151.png');
+INSERT INTO "myapp2_item" VALUES(152,'Swipe left⬅️⬅️⬅️
+—————————————————
+Full set cheni, hereni, saa
+Price: 65,000/= tu
+Call/whatsap 0712255200
+Delivery free
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKPk1_6jJFV/',NULL,'','',0,'images/2021/01/31/item152.png');
+INSERT INTO "myapp2_item" VALUES(153,'Swipe left⬅️⬅️⬅️
+Full set cheni, hereni, saa
+Price: 65,000/= tu
+Call/whatsap 0712255200
+Delivery free
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKPkuNMjETm/',NULL,'','',0,'images/2021/01/31/item153.png');
+INSERT INTO "myapp2_item" VALUES(154,'Swipe left⬅️⬅️⬅️
+Full set cheni, hereni, saa
+Price: 65,000/= tu
+Call/whatsap 0712255200
+Delivery free
+Mkoani tunatuma kwa bei nafuu
+Tunaeza tukakuekea na cheni
+Karibuni','','https://www.instagram.com/p/CKPkmCbjd0P/',NULL,'','',0,'images/2021/01/31/item154.png');
+INSERT INTO "myapp2_item" VALUES(155,'Swipe left⬅️⬅️⬅️
+Ladies watches
+Price 45,000/= tu
+Delivery free
+Mkoani tunatuma kwa bei nafuu
+Tunaeza kukuekea cheni na hereni na price ikawa 65,000/= tu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKPkfp6jlp8/',NULL,'','',0,'images/2021/01/31/item155.png');
+INSERT INTO "myapp2_item" VALUES(156,'Swipe left⬅️⬅️⬅️
+Full set cheni, hereni, saa
+Price: 65,000/= tu
+Call/whatsap 0712255200
+Delivery free
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKPjNliD3tm/',NULL,'','',0,'images/2021/01/31/item156.png');
+INSERT INTO "myapp2_item" VALUES(157,'Swipe left⬅️⬅️⬅️
+Full set cheni, hereni, saa
+Price: 65,000/= tu
+Call/whatsap 0712255200
+Delivery free
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKPjCg7DXE_/',NULL,'','',0,'images/2021/01/31/item157.png');
+INSERT INTO "myapp2_item" VALUES(158,'✅swipe left kuona post zingine⬅️⬅️
+________________________________________
+Patteck philipe za mikanda ya ngozi
+Price Tsh 65,000/=
+Zimebaki hizo tu
+Wahi mzigo unaishia
+Mishale yote inazunguka
+Ni saa nzuri mikanda ya ngozi iko vizuri
+Delivery kwa dsm free
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKN6m27nDz9/',NULL,'','',0,'images/2021/01/31/item158.png');
+INSERT INTO "myapp2_item" VALUES(159,'NAVIFORCE NEW WATCH
+Price 75,000/=tu
+Mishale yote sita inafanya kazi
+mikanda chuma imara
+tarehe
+waterproof
+Japanese Machine
+Warranty 1 year
+Free delivery kwa watu wa dar
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKLlkHlnyyP/',NULL,'','',0,'images/2021/01/31/item159.png');
+INSERT INTO "myapp2_item" VALUES(160,'Package, package offer
+✅Valentine is near ❤️💖
+✅saa, wallet na box lake lenye maua na mdoli
+___________________________________________
+✅Price 110,000/= tu
+✅Saa ni nzuri
+✅Wallet pia ni nzuri
+✅Delivery ni free
+✅Mkoani tunatuma
+✅Call/whatsap 0712255200
+Nipigie au nitext nikutengenezee package nzuri zaidi
+Karibuni watches store tz','','https://www.instagram.com/p/CKLIaXZHK8S/',NULL,'','',0,'images/2021/01/31/item160.png');
+INSERT INTO "myapp2_item" VALUES(161,'KADEMAN WATCH
+Price elfu 85,000/= tu
+
+✅ina digital
+✅mikanda ngozi imara
+✅inawaka taa
+✅tarehe
+✅stopwatch
+✅alarm
+✅waterproof
+✅Japanese Machine
+✅Warranty 1 year
+🚚Free delivery
+📦mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CKLHr5nnyGr/',NULL,'','',0,'images/2021/01/31/item161.png');
+INSERT INTO "myapp2_item" VALUES(162,'Rolex orginal
+Price 200,000/=
+Haipauki
+Haingizi maji
+Ni imara
+1year warranty
+Free delivery
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CKGmvhuHwJx/',NULL,'','',0,'images/2021/01/31/item162.png');
+INSERT INTO "myapp2_item" VALUES(163,'NAVIFORCE WATCH
+Price: 75,000/= tu
+Ni nzito, imara, mikanda ni imara
+Otginal
+One year waranty
+Delivery popote
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200
+________________________________________
+Picha na uhalisia havitofutiani
+Karibuni
+Only @watches_store_tz','','https://www.instagram.com/p/CKA4eOenEzu/',NULL,'','',0,'images/2021/01/31/item163.png');
+INSERT INTO "myapp2_item" VALUES(164,'Naviforce za chuma
+Price 75,000/= tu
+✅Hazipauki
+✅Ni nzito
+✅Imara
+✅Water resistant
+🚚free delivery
+📦 mkoani tunatuma kwa bei nafuu
+☎️call/whatsap 0712255200','','https://www.instagram.com/p/CJ-1zkrnZ--/',NULL,'','',0,'images/2021/01/31/item164.png');
+INSERT INTO "myapp2_item" VALUES(165,'OFFICE WATCH BENYER
+✅Price tsh 100,000 tu
+✅very unique
+✅stopwatch
+✅mishale yote inafanya kazi
+✅mikanda ngozi imara
+✅waterproof
+✅1 year warranty
+🚚Delivery free
+📦Mkoani tunatuma kwa gharama nafuu
+☎️Call/whatsap 0712255200','','https://www.instagram.com/p/CJ8BEOHH9sX/',NULL,'','',0,'images/2021/01/31/item165.png');
+INSERT INTO "myapp2_item" VALUES(166,'Saa na wallet bado zipo
+Price 100,000/= tu
+___________________________________________
+Wallet 25,000
+Saa 75,000/=
+Delivery ipo mpaka nyumbani kwako
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200
+Saa zipo aina tofauti na wallet zipo aina nyingi
+Wasiliana na mimi nijue jinsi ya kutengeneza package yako
+Karibuni 🥳🥳🥳','','https://www.instagram.com/p/CJ7xb6dHmNq/',NULL,'','',0,'images/2021/01/31/item166.png');
+INSERT INTO "myapp2_item" VALUES(167,'Golden hour zimerudi
+Price:75,000/= tu
+———————————————————
+✅Mikanda ya chuma imara
+✅One year warranty
+✅Delivery free kwa dsm
+✅Mkoani tunatuma kwa bei nafuu
+☎️Call/whatsap 0712255200
+Saa nzuri kabisa karibuni','','https://www.instagram.com/p/CJ7u7NcnIEz/',NULL,'','',0,'images/2021/01/31/item167.png');
+INSERT INTO "myapp2_item" VALUES(168,'OFFICE WATCH 85,000
+very unique
+Ina stopwatch
+mishale yote inafanya kazi
+mikanda ngozi imara na chuma haipauki
+waterproof
+1 year warranty
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJ5mLPqnW_j/',NULL,'','',0,'images/2021/01/31/item168.png');
+INSERT INTO "myapp2_item" VALUES(169,'White rado zimeshaingia taari
+Price 75,000/=tu kwa moja
+Kwa zote mbili 140,000/= tu
+——————————————————-
+Hazipauki
+Ni imara
+One year warranty
+🚚Delivery free
+📦Mkoani tunatuma kwa bei nafuu
+Kama unapenda vitu vizuri mzigo uo hapo wanaolewa wanakuja inbox moja kwa moja❤️❤️👌
+☎️Call/whatsap 0712255200','','https://www.instagram.com/p/CJ5WzRcHFbk/',NULL,'','',0,'images/2021/01/31/item169.png');
+INSERT INTO "myapp2_item" VALUES(170,'Mzigo wa naviforce imeingia
+Price 60,000/=tu
+✅Mikanda ni imara na leather
+✅Water resistant 30m
+🚚delivery free
+📦mkoani tunatuma kwa bei nafuu
+☎️call/whatsap 0712255200','','https://www.instagram.com/p/CJ3aHNYH4_j/',NULL,'','',0,'images/2021/01/31/item170.png');
+INSERT INTO "myapp2_item" VALUES(171,'✅CURREN LADIES
+✅price 55,000
+✅Unique design, water proof,
+✅ warranty mwaka mmja','','https://www.instagram.com/p/CJ0L_0bHjg_/',NULL,'','',0,'images/2021/01/31/item171.png');
+INSERT INTO "myapp2_item" VALUES(172,'LOVERS’ WATCHES
+______________________________________
+✅Price 65,000/= kwa moja
+✅kwa zote mbili 120,000
+✅haipauki
+✅waterproof
+✅tarehe
+✅warranty 1 year
+✅free delivery
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJ0JNr2nAy9/',NULL,'','',0,'images/2021/01/31/item172.png');
+INSERT INTO "myapp2_item" VALUES(173,'Hello wapendwa wangu
+Jamani mikoa yote tunatuma kwa bei nafuu kabsa
+Karibuni sana
+Ogopa matapeli🤪🤪
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJz1SUAHtps/',NULL,'','',0,'images/2021/01/31/item173.png');
+INSERT INTO "myapp2_item" VALUES(174,'White rado 75,000/= tu
+Imara nzito hazipauki
+One year warranty
+________________________________
+Delivery free kwa dsm
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJy72P2Hvun/',NULL,'','',0,'images/2021/01/31/item174.png');
+INSERT INTO "myapp2_item" VALUES(175,'✅Rado hizi Orginal 75,000 kwa moja
+✅Ukichukua mbili bei maelewano
+✅Imara haipauki
+✅One year warranty
+______________________________________________
+🚚Delivery free kwa dsm
+🚚Mkoani tunatuma kwa bei nafuu
+☎️Call/whatsap 0712255200','','https://www.instagram.com/p/CJy55ATHsXg/',NULL,'','',0,'images/2021/01/31/item175.png');
+INSERT INTO "myapp2_item" VALUES(176,'Hii saa Golden hour imerudi
+Price 75,000/= tu
+Haipauki
+Mikanda ni imara
+Water proof 30m
+Free delivery
+Mkoani tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJx6oQyHpz6/',NULL,'','',0,'images/2021/01/31/item176.png');
+INSERT INTO "myapp2_item" VALUES(177,'✅Rado 120,000/=tu
+✅Orginal version
+✅Haipauki mikanda na ni imara
+✅Delivery bure
+✅Mkoa is tunatuma kwa bei nafuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJwRrKGnC2m/',NULL,'','',0,'images/2021/01/31/item177.png');
+INSERT INTO "myapp2_item" VALUES(178,'Zimerudi tena hizi saa
+Price 75,000/= tu
+✅Orginal, imara, nzito na kubwa
+—————————————————
+✅Brand: Golden hour
+✅ina saa mbili digital na analog
+✅inatumia betri
+✅ina light, stop watch, alarm
+✅pia ina saa, tarehe, siku
+✅one year warranty
+✅30m water resistant
+✅Mikanda mizito alafu stainless steel.
+——————————————————
+☎️Call/whatsap 0712255200
+🚚 free delivery
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CJu1Lm7nW5K/',NULL,'','',0,'images/2021/01/31/item178.png');
+INSERT INTO "myapp2_item" VALUES(179,'Zimerudi tena hizi saa
+Price 75,000/= tu
+✅Orginal, imara, nzito na kubwa
+—————————————————
+✅Brand: Golden hour
+✅ina saa mbili digital na analog
+✅inatumia betri
+✅ina light, stop watch, alarm
+✅pia ina saa, tarehe, siku
+✅one year warranty
+✅30m water resistant
+✅Mikanda mizito alafu stainless steel.
+——————————————————
+☎️Call/whatsap 0712255200
+🚚 free delivery
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CJu1Aa5Ho1a/',NULL,'','',0,'images/2021/01/31/item179.png');
+INSERT INTO "myapp2_item" VALUES(180,'Hii saa ya mishale imerudi
+Price 75,000/= tu
+Haipauki
+Water proof
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJsZnYiHnb1/',NULL,'','',0,'images/2021/01/31/item180.png');
+INSERT INTO "myapp2_item" VALUES(181,'Casio available 55,000/= tu
+Free delivery
+Mkoani tunatuma kwa bei nafuu','','https://www.instagram.com/p/CJqTnjbnbwE/',NULL,'','',0,'images/2021/01/31/item181.png');
+INSERT INTO "myapp2_item" VALUES(182,'Smart watch 75,000/= tu
+(android na Apple zote zinakubali)
+inaonyesha muda kama kawaida
+inanotify sms na calls,Whatsapp
+insta na apps zingine
+inapima pressure
+calories ulizoburn
+distance
+steps
+water resistant 30m
+———————————————————
+Hii model japo hueki simcard ila unaeza ukapiga na kupokea km kawaida
+—————————————————-
+
+Model X7 : Color ziko blue, black, pink na white
+——————————————————-
+
+package yake inainclude box na user manual','','https://www.instagram.com/p/CJp_041Hpra/',NULL,'','',0,'images/2021/01/31/item182.png');
+INSERT INTO "myapp2_item" VALUES(183,'Package kama hii ni nzuri sana
+✅Price120,000
+✅Inatakuwa na tai, wallet, na saa
+✅Box lenye ua
+🚚Delivery bure
+☎️call/whatsap 0712255200','','https://www.instagram.com/p/CJos66xHuDs/',NULL,'','',0,'images/2021/01/31/item183.png');
+INSERT INTO "myapp2_item" VALUES(184,'Tissot 85,000/= tu
+Orginal
+Water resistant
+Genuine lather belt
+One year warranty
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJX3QWRHiuN/',NULL,'','',0,'images/2021/01/31/item184.png');
+INSERT INTO "myapp2_item" VALUES(185,'Full package 55,000/= tu
+Tunaeza kukuekea na cheni pia na price ikabaki the same
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJX3Ap8HeRS/',NULL,'','',0,'images/2021/01/31/item185.png');
+INSERT INTO "myapp2_item" VALUES(186,'Walet za kueka ndani ya box la saa
+Zipo karibuni
+Pure leather 25,000 tu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJX2ykqnQZl/',NULL,'','',0,'images/2021/01/31/item186.png');
+INSERT INTO "myapp2_item" VALUES(187,'Box elfu 5,000 jamn mabox yanauzwa','','https://www.instagram.com/p/CJX2o-Cn0m4/',NULL,'','',0,'images/2021/01/31/item187.png');
+INSERT INTO "myapp2_item" VALUES(188,'Boxing day with special offer
+75,000/= tu kila kitu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJQ3buYHhvX/',NULL,'','',0,'images/2021/01/31/item188.png');
+INSERT INTO "myapp2_item" VALUES(189,'Pateck phillipe 65,000/= tu
+Yan hii saa ni nzuri sana sidhani kama ni ya kukosa
+Kwa msimu huu wa sikukuh wahi offer yako','','https://www.instagram.com/p/CJLfGKXHgdd/',NULL,'','',0,'images/2021/01/31/item189.png');
+INSERT INTO "myapp2_item" VALUES(190,'Patteck bei ya offer 65,000/= only
+Kwa msimu huu wa sikukuu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJLe8DInrMo/',NULL,'','',0,'images/2021/01/31/item190.png');
+INSERT INTO "myapp2_item" VALUES(191,'Smart bracelet
+Price 75,000/= tu
+———————————————-
+✅android na Apple zote zinakubali) ✅inaonyesha muda kama kawaida
+✅inanotify sms na calls, Whatsapp,
+✅insta na apps zngne, inapima ✅pressure, calories ulizoburn,
+distance, steps,
+✅water resistant 30m
+package yake inainclude box na user manual
+☎️call/whatsap 0712255200
+🚚free delivery kwa watu wa dsm
+Mkoani tunatuma kwa bei nafuu
+Karibuni','','https://www.instagram.com/p/CJG7fNwnLC9/',NULL,'','',0,'images/2021/01/31/item191.png');
+INSERT INTO "myapp2_item" VALUES(192,'0ffer Pateck Philippe 65,000/= tu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJGFfTvHpBM/',NULL,'','',0,'images/2021/01/31/item192.png');
+INSERT INTO "myapp2_item" VALUES(193,'Packages nzuri kabisa kwa zawadi
+Price:55,000/= tu
+_________________________________________
+✅Karibuni tu kwa ajili ya zawadi ya boxing day karibu tukuhudumie
+Call/whatsap 071225500','','https://www.instagram.com/p/CJC_UTHnyyZ/',NULL,'','',0,'images/2021/01/31/item193.png');
+INSERT INTO "myapp2_item" VALUES(194,'Am overwhelmed with this ❤️❤️
+Asanteni wateja wangu 🙏🙏
+Asante sana','','https://www.instagram.com/p/CJB99GOnP2q/',NULL,'','',0,'images/2021/01/31/item194.png');
+INSERT INTO "myapp2_item" VALUES(195,'Hublot zilizopo kwa sasa
+Price 55,000/= tu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CJB7h0HHvdq/',NULL,'','',0,'images/2021/01/31/item195.png');
+INSERT INTO "myapp2_item" VALUES(196,'Hizi rado ni nzuri na ziko unique sana
+Unaeza ukanunua kwa peke ako au ukanunua na mpenzi
+Each ni 70,000/= tu
+Call/whatsap 0712255200
+Delivery kwangu mkoani tunatuma kwa bei nafuu sana','','https://www.instagram.com/p/CJByzVsHeqe/',NULL,'','',0,'images/2021/01/31/item196.png');
+INSERT INTO "myapp2_item" VALUES(197,'Naviforce 55,000/= tu
+Call/whatsap 0712255200','','https://www.instagram.com/p/CI-OnJ9HMzV/',NULL,'','',0,'images/2021/01/31/item197.png');
+INSERT INTO "myapp2_item" VALUES(198,'Naviforce hizi unapata kwa elfu 55,000
+I think hakuna saa nzuri na ambayo inauzwa bei nafuu kama hizi
+Karibuni
+I think walionunua wana feedback nzuri sana
+Call/whatsap 0712255200','','https://www.instagram.com/p/CI-OdKrnwSZ/',NULL,'','',0,'images/2021/01/31/item198.png');
+INSERT INTO "myapp2_item" VALUES(199,'✅Set nzima yaan saa, wallet, mkanda, soksi na box lake kubwa sana na lina maua
+Price: 125,000/=tu
+ila mteja ana option ya kuchagua km hataki box ili bei ipungue au aekewe box la bei rahis,au anaeza punguza baadhi ya vitu vilivyopo kwenye package kulingana na budget yako
+Mambo ya boxing day kumekucha❤️
+Karibuni sana
+☎️call/whatsap 0712255200','','https://www.instagram.com/p/CI2hcbwHGmq/',NULL,'','',0,'images/2021/01/31/item199.png');
+INSERT INTO "myapp2_item" VALUES(200,'Naviforce 55,000/= tu
+Wahi hii offer
+Mikanda imara ya ngozi
+Call/whatsap 0712255200','','https://www.instagram.com/p/CIz6C3hHcSX/',NULL,'','',0,'images/2021/01/31/item200.png');
+INSERT INTO "myapp2_item" VALUES(201,'Smart Bracelate zimerudi tena
+Price: 35,000/= tu
+Delivery free mkoani runatuma kwa bei nafuu
+Call/whatsap 0712255200
+Function ni kama zile za smart watch
+Karibuni','','https://www.instagram.com/p/CIzi-D7n4lO/',NULL,'','',0,'images/2021/01/31/item201.png');
+INSERT INTO "myapp2_item" VALUES(202,'Naviforce kama naviforce
+Ndo habari ya mjini
+Price: 55,000/= tu','','https://www.instagram.com/p/CIxWmnfHHwX/',NULL,'','',0,'images/2021/01/31/item202.png');
+INSERT INTO "myapp2_item" VALUES(203,'Naviforce 55,000/= tu','','https://www.instagram.com/p/CIxWe0lHLTO/',NULL,'','',0,'images/2021/01/31/item203.png');
+INSERT INTO "myapp2_item" VALUES(204,'Watch brand: Lewis
+Price:10,000/= tu kwa moja
+Saa hii delivery atalipia mteja
+Call/whatsap 0712255200','','https://www.instagram.com/p/CImG2_mHked/',NULL,'','',0,'images/2021/01/31/item204.png');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp2_profile" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "username" varchar(200) NOT NULL);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp2_tag" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(20) NOT NULL);
+INSERT INTO "myapp2_tag" VALUES(1,'watch');
+INSERT INTO "myapp2_tag" VALUES(2,'macbook');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp2_url" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "url" varchar(200) NOT NULL);
+INSERT INTO "myapp2_url" VALUES(1,'https://www.instagram.com/watches_store_tz/');
+INSERT INTO "myapp2_url" VALUES(2,'https://www.instagram.com/macbook_tz/');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp_caption" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "text" text NOT NULL);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp_item" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(200) NOT NULL, "location" varchar(50) NOT NULL, "url" varchar(200) NULL, "contact" varchar(50) NOT NULL, "description" varchar(100) NOT NULL, "img_url" varchar(200) NULL, "is_sold" bool NOT NULL, "latitude" decimal NULL, "longitude" decimal NULL, "img" varchar(100) NULL);
+INSERT INTO "myapp_item" VALUES(1,'chipsi Kuku','','https://malenschools.pythonanywhere.com/','0746873294','',NULL,0,NULL,NULL,'images/2021/19/22/images_1.jfif');
+INSERT INTO "myapp_item" VALUES(2,'CHIPSI MAYAI','',NULL,'','',NULL,0,NULL,NULL,'images/2021/42/22/images.jfif');
+INSERT INTO "myapp_item" VALUES(3,'FANTA ORANGE','',NULL,'','TAKEAWAY',NULL,1,NULL,NULL,'images/2021/48/22/download_4.jfif');
+INSERT INTO "myapp_item" VALUES(4,'SPRITE','',NULL,'','TAKEAWAY',NULL,1,NULL,NULL,'images/2021/48/22/download_2.jfif');
+INSERT INTO "myapp_item" VALUES(5,'FANTA ORANGE','',NULL,'','',NULL,1,NULL,NULL,'images/2021/48/22/download_3.jfif');
+INSERT INTO "myapp_item" VALUES(6,'JUICE YA MIWA','',NULL,'','',NULL,0,NULL,NULL,'images/2021/48/22/images_4.jfif');
+INSERT INTO "myapp_item" VALUES(7,'Phone and Laptop Covers','','https://www.instagram.com/p/CKgu7mGLP58/','0719054536','Laptop and Phone Covers','https://instagram.fdar3-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s640x640/142538536_2750014578646609_1345971788163722056_n.jpg?_nc_ht=instagram.fdar3-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=80ioGUFCJ44AX-',0,NULL,NULL,'');
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");
+CREATE TABLE IF NOT EXISTS "myapp_profile" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "username" varchar(200) NOT NULL);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id");
+CREATE INDEX IF NOT EXISTS "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_group_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_user_id_6a12ed8b" ON "auth_user_groups" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_groups_group_id_97559544" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_user_id_a95ead1b" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX IF NOT EXISTS "auth_user_user_permissions_permission_id_1fbb5f2c" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_codename_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX IF NOT EXISTS "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id");
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" ("expire_date");

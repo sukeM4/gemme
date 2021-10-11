@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "braided-city-298421",
+  "private_key_id": "2dcfe7357a48e31fb7b15eb12b7e87158a39932c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8BhtRrtND91ND\nVCmkVrsF1U8vUUsW/CuwXeR8k/o9RM73lqdOoBXH/EHvttyVGiCiKCamZa0z70sZ\nrsUAle4Vsp1prFMDne24br+cLxBWibFC6+l+rKN0i/XyfJ5xXZ4kLqua1vTrQ2lY\n2GfSpk2rszQg7sk/z3Zs9jw4MB0RRHbHQod3tI2Y8LYx6Bx38TUuXpPW1KAG+z2O\nngD+AzN0vPjq7GqhKgHFZsulEojeEsZFLagnDgW5+D1fcXMMo7RStKs7XNXTufF/\n64yaolkROJJfRN046cu3J+flO8dxDB7olXlLK3qkMgf2M6NBenlf/bdRVKlKQFiy\nRWI5bpGFAgMBAAECggEAKnlErZiND/LsY66882tGN0Se7STzjf8sDVzAcyXoZvPG\nvyZQqBHAqdsBuBl6TdJHoenpBTi9vhglwmj5Bq9Xx54AMjFj1VLVMw8NiMYW7j2P\nhfsN1XhBOmAtkHf3QMuxoCHM0R8S15x0TUYhefPoYsuKEJBwdNI0QdwD8Xto7Y/C\ndrvSA+xkpsgYfuPlSP/wV1q/83a2JK7Xw0oJk1Q/7LMcyUJZ06r/QHgBqyTgocfV\n16kg2W7zKTIdVRtodXNCi4lIR4osHT4Zw+GX7Q31SRTTcwiQwIK1pU2qe/utap/Y\nyCzMWDCnkOtcr3pRfFOwlxDrG14bu8NBH4EH1UCFlwKBgQD1j0L6QB6y+7ORbBO5\nqRsHM4jBJN1Yh2YyWpViPS7PR1Q02ffRNh6fDooaxId58tL8FkEj0rpD166UF9L9\nqEAT7WiLCgSikoGp+K78PAHeuFR7NBszpM+uQt4VHzEqIcZYxAZd66GE+NAjyri3\nwic1SBpeMHYqnoptd92ABipq6wKBgQDEBJwrg0zWR4+oDd7CFsJOHuM4FVcpa7JU\nKiwJXGi+dcIss9yExWg17bMF/GZeUj262p33t9Zy70K6BfT6Z6u+Ol09SijRPrVy\nnJg9s9XceGC7IlfywdKk9FbUo3jNFRSNx25stN3SVPd3MrvuEkUdJ+Z+CIbf0dTF\nE9MY2Mv5TwKBgGR+xfVuqmGrmvin14bDC1muIIiTErc5anyvD7XNvkt8MJ0Um1QW\npv+HTsPXrG4fD3O1k+EaS7qaGUtoWKQQ6HB/V6qXZgA2nzQ1nz+BO26v13s4fu1q\nxMfXe9X/FvrcKbWIO+bSGR83SM9tFp21qqAmqwvjH2kfyx0z0gWkAFYTAoGALxrA\ngMBjxZaa0hLLNi8L8IQBrGeMc5q61vjvbixzy1k3GVD7rDhYK6V8gPK/kukGhpGk\npnPaJ/KRQWzPCyHAps0VvPXGS0pbhjhVaXZ+7SVMcYv2QJMNULCa8Sx7iiUHtG55\nfcwVBkd+1Hkvqi1fyHrfK+hWqRCepeF2uCDZG4cCgYEAnwMIlCYJ6bUDD2bsbvv0\n53aJZNJ6fKVMypA77/ukcZFCiJdUqGih5IXbIAvQNPd2tukkWT8zC2L3Ye/SxyZD\nhDTKVLn7DElDme7bQp10giddPlR1oQzr9xf9VHh/uZ0+oxK22glZF10XPTaxg2Mk\ndizZ71wleh5kOE/nZXsUzzs=\n-----END PRIVATE KEY-----\n",
+  "client_email": "lilo-748@braided-city-298421.iam.gserviceaccount.com",
+  "client_id": "100130567071046902250",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/lilo-748%40braided-city-298421.iam.gserviceaccount.com"
+}

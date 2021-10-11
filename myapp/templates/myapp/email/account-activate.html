@@ -1,0 +1,136 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+
+
+
+</head> -->
+
+{% autoescape off %}
+
+<body style="height: 100%; display: flex; align-items: center; justify-content: center;">
+    <div style="margin:0;padding:0" dir="ltr" bgcolor="#ffffff">
+        <table border="0" cellspacing="0" cellpadding="0" align="center" id="m_6035875260329941450email_table" style="border-collapse:collapse">
+            <tbody>
+                <tr>
+                    <td id="m_6035875260329941450email_content" style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;background:#ffffff">
+                        <table border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                            <tbody>
+                                <tr>
+                                    <td height="20" style="line-height:20px" colspan="3">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td height="1" colspan="3" style="line-height:1px"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;text-align:center;width:100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="15px" style="width:15px"></td>
+                                                    <td style="line-height:0px;max-width:600px;padding:0 0 15px 0">
+                                                        <table border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="width:100%;text-align:left;height:33px"><img height="33" src="https://gemme.pythonanywhere.com/static/myapp/images/logo-black.png" style="border:0" class="CToWUd"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td width="15px" style="width:15px"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table border="0" width="430" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 auto 0 auto">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table border="0" width="430px" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 auto 0 auto;width:430px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="15" style="display:block;width:15px">&nbsp;&nbsp;&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="12" style="display:block;width:12px">&nbsp;&nbsp;&nbsp;</td>
+                                                                    <td>
+                                                                        <table border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td style="margin:10px 0 10px 0;color:#565a5c;font-size:18px">
+                                                                                        <p style="margin:10px 0 10px 0;color:#565a5c;font-size:18px">Hi,</p>
+                                                                                        <p style="margin:10px 0 10px 0;color:#565a5c;font-size:18px">Someone tried to sign up for a <b>Lilo</b> account with <a href="mailto:{{email}}" target="_blank">{{email}}</a>.</p>
+                                                                                        <p style="margin:10px 0 10px 0;color:#565a5c;font-size:18px"> If it was you, please click verify now to confirm your registration.</p>
+                                                                                        <p style="color:#565a5c;font-size:18px; text-align: center;">
+                                                                                            <a href="{{scheme}}://{{domain}}{% url 'account_activate' uidb64=uid token=token %}" style="background-color: #007bff; color: white; padding: 8px; height: 40px; border-radius: 20px; text-decoration-line: none; white-space: nowrap;">Verify Now</a>
+                                                                                        </p>
+                                                                                        <p style="margin:10px 0 10px 0;color:#abadae;font-size:14px; text-align: center;">OR</p>
+                                                                                        <p style="margin:10px 0 10px 0;color:#565a5c;font-size:18px">Copy this link and paste it into your browser, {{scheme}}://{{domain}}{% url 'account_activate' uidb64=uid token=token %}</p>
+                                                                                        <br>
+                                                                                        <p style="margin:10px 0 10px 0;color:#abadae;font-size:12px; text-align: center;">If you think, it's not you, then just ignore this email.</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 auto 0 auto;width:100%;max-width:600px">
+                                            <tbody>
+                                                <tr>
+                                                    <td height="4" style="line-height:4px" colspan="3">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="15px" style="width:15px"></td>
+                                                    <td width="20" style="display:block;width:20px">&nbsp;&nbsp;&nbsp;</td>
+                                                    <td style="text-align:center">
+
+                                                        <div style="height:10px"></div>
+                                                        <div style="color:#abadae;font-size:11px;margin:0 auto 5px auto">© Lilo. Pris Inc., Hubert Kairuki Street, Dar Es Salaam, Tanzania<br></div>
+                                                        <div style="color:#abadae;font-size:11px;margin:0 auto 5px auto">This message was sent to <a style="color:#abadae;text-decoration:underline">{{email}}</a>.<br></div>
+                                                    </td>
+                                                    <td width="20" style="display:block;width:20px">&nbsp;&nbsp;&nbsp;</td>
+                                                    <td width="15px" style="width:15px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="32" style="line-height:32px" colspan="3">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="20" style="line-height:20px" colspan="3">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+{% endautoescape %}
+
+</html>

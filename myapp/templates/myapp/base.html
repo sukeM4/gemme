@@ -1,0 +1,996 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Pris Coperation">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>{{request.resolver_match.url_name|title}}</title>
+
+    <link rel="canonical" href="{{request.build_absolute_uri}}">
+
+    <!--bing meta tag-->
+    <meta name="msvalidate.01" content="CC7C150B55FD314BDE0849B8D19B9F9A" />
+
+    <!-- map box -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- Import Turf and Polyline mapbox -->
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/mapbox-polyline/1.1.1/polyline.js></script>
+
+    <!-- Import Mapbox GL Directions -->
+    <script src=https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js></script>
+    <link rel="stylesheet" href=https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css type="text/css" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'myapp/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- font icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/vendors/styles/icon-font.min.css' %}">
+
+    <!-- Site favicon -->
+    <!--<link rel="apple-touch-icon" sizes="180x180" href="{% static 'myapp/images/box.svg' %}">-->
+    <!--<link rel="icon" type="image/png" sizes="32x32" href="{% static 'myapp/images/box.svg' %}">-->
+    <!--<link rel="icon" type="image/png" sizes="16x16" href="{% static 'myapp/images/box.svg' %}">-->
+
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'myapp/images/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'myapp/images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'myapp/images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'myapp/images/favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'myapp/images/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'myapp/images/favicomatic/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'myapp/images/favicomatic/apple-touch-icon-114x114.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'myapp/images/favicomatic/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'myapp/images/favicomatic/apple-touch-icon-144x144.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static 'myapp/images/favicomatic/apple-touch-icon-60x60.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'myapp/images/favicomatic/apple-touch-icon-120x120.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'myapp/images/favicomatic/apple-touch-icon-76x76.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'myapp/images/favicomatic/apple-touch-icon-152x152.png' %}" />
+    <link rel="icon" type="image/png" href="{% static 'myapp/images/favicomatic/favicon-196x196.png' %}" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{% static 'myapp/images/favicomatic/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/png" href="{% static 'myapp/images/favicomatic/favicon-32x32.png' %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'myapp/images/favicomatic/favicon-16x16.png' %}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{% static 'myapp/images/favicomatic/favicon-128.png' %}" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{% static 'myapp/images/favicomatic/mstile-144x144.png' %}" />
+    <meta name="msapplication-square70x70logo" content="{% static 'myapp/images/favicomatic/mstile-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'myapp/images/favicomatic/mstile-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'myapp/images/favicomatic/mstile-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'myapp/images/favicomatic/mstile-310x310.png' %}" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'myapp/images/logo-black.svg' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'myapp/images/logo-black.svg' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'myapp/images/logo-black.svg' %}">
+    <link rel="manifest" href="{% static 'myapp/images/favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'myapp/images/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'myapp/custom-css/blog.css' %}" rel="stylesheet">
+    <link href="{% static 'myapp/custom-css/core.css' %}" rel="stylesheet">
+    <link href="{% static 'myapp/custom-css/main.css' %}" rel="stylesheet">
+
+    <!-- custom fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+    <!-- custom fonts desk app -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+
+    {% block styles %}{% endblock %}
+    <style>
+        /*body { -webkit-transition: all 1s ease-in-out; }*/
+        .dropdown-toggle::after {
+            content: none;
+        }
+
+        .round-40 {
+            border-radius: 40px;
+        }
+
+        .nav-item .nav-link {
+            border-radius: 40px;
+        }
+
+        button {
+            color: rgba(0, 0, 0, .55);
+            background-color: white;
+        }
+        .marker {
+            position: absolute;
+        }
+        .ad-block {
+            left: 0;
+        }
+        /*body{background-color: #ecf0f4;}*/
+        /*body{background-color: #f5f5f5;}*/
+        #search-box-sm{background-color: #f5f5f5;}
+
+        .like-btn-item{
+            position: absolute;
+            right: 10px;
+            background: rgba(1,1,1,1);
+
+        }
+        .like-btn i{
+            font-weight:700;
+        }
+        .like-btn{
+            position: absolute;
+            right: 0;
+            background-color: rgba(255,255,255,0.88);
+        }
+        .like-btn.circle-btn{
+            width: 30px;
+            height: 30px;
+            box-shadow: 0 0 28px rgb(0 0 0/8%);
+        }
+        .d-shadow{
+            box-shadow: 0 4px 8px 0 rgb(0 0 0/8%);
+            border: 1px solid #ccc;
+        }
+        .modal{
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .modal-content{
+            border-radius: 24px;
+        }
+        .primary-color{
+            color: #6c80fd;
+
+        }
+        .text-gold{
+            color: #ffd700;
+    </style>
+    <style>
+    .grid {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    /* ---- grid-item ---- */
+
+    .grid-item {
+        width: 50%;
+        /*padding: 4px;*/
+        float: left;
+    }
+
+    .grid-item .card {
+        /*padding: 10px;*/
+        margin: 4px;
+        /*margin-bottom: 12px;*/
+        border-radius: 24px;
+        border: 0;
+        font-size: 14px;
+        overflow: hidden;
+        box-shadow:0 0 6px 0 rgb(0 0 0 / 6%);
+    }
+
+    .grid-item .card img {
+        /*border-radius: 16px;*/
+        vertical-align: middle;
+    }
+
+    @media (min-width: 1200px) {
+        .grid-item {
+            /*background-color: red;*/
+            width: calc(100% / 5);
+            max-width: calc(100% / 5);
+            /*padding: 8px;*/
+        }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        .grid-item {
+            width: calc(100% / 5);
+            max-width: calc(100% / 5);
+            /*padding: 8px;*/
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .grid-item {
+            width: 25%;
+            max-width: 25%;
+            /*padding: 8px;*/
+        }
+    }
+
+    @media (min-width: 576px) and (max-width: 767px) {
+        .grid-item {
+            width: calc(100% / 3);
+            max-width: calc(100% / 3);
+            /*padding: 8px;*/
+        }
+        .grid-item .card {
+            /*padding: 6px;*/
+        }
+    }
+
+    @media (min-width: 767px) {
+        .grid-item .card {
+            /*padding: 8px;*/
+            margin:16px;
+            /*margin-bottom: 16px;*/
+            font-size: 16px;
+            /*border-radius: 16px;*/
+        }
+        .grid-item .card img {
+            border-radius: 20px;
+        }
+        .ad-block {
+            margin-left: -10px;
+        }
+    }
+    button{border: 0;}
+    /*.bg-light{background-color: rgb(244, 246, 252);}*/
+    .bg-light {
+            background-color: #F4F6FC!important;
+        }
+    .text-light{color: rgb(244, 246, 252);}
+    .d-bottom {
+        position: fixed;
+        bottom: 0;
+        z-index: 2;
+        /*margin: 12px 16px;*/
+        width: calc(100% - 0px);
+        /* border-top-left-radius: 24px; */
+        border-radius: 20px;
+        /* background-color: rgb(31, 30, 30); */
+    }
+
+    .tab {
+        color: white;
+        height: 56px;
+        width: 56px;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tab--left {
+        width: calc(50% - 28px);
+        border-top-right-radius: 18px;
+        border-top-left-radius: 28px;
+        border-bottom-left-radius: 0px;
+        /* border-top: 1px solid rgba(167, 161, 161, 0.69); */
+        box-shadow: -18px 0 16px 4px rgb(0 0 0 / 16%);
+        background-color: white;
+    }
+
+    .tab--right {
+        width: calc(50% - 28px);
+        border-top-left-radius: 18px;
+        border-top-right-radius: 28px;
+        border-bottom-right-radius: 0px;
+        background-color: white;
+        /* border-top: 1px solid rgba(167, 161, 161, 0.69); */
+        box-shadow: 18px 0 16px 4px rgb(0 0 0 / 16%);
+    }
+
+    .top {
+        /* display: none; */
+        width: 100%;
+        height: 50%;
+        align-items: center;
+        justify-content: center;
+        /* Left Curve */
+        border-bottom-left-radius: 28px;
+        /* Right Curve */
+        border-bottom-right-radius: 28px;
+        /*  If you add a color here it will produce a solid shape rather than a curve */
+        background-color: transparent;
+        /* Will submerge our curve with left and right tab's border */
+        box-shadow: 0px 28px 0px 28px white;
+        /*border-bottom: 1px solid rgba(167, 161, 161, 0.69);*/
+    }
+
+    .tab--fab {
+        width: 56px;
+        /* align-items: flex-end; */
+        justify-content: center;
+        /* width: 180px; */
+        /* height: 100%; */
+        /* Curve will only be possible if our whole tab is transparent */
+        background: transparent;
+        border: none;
+    }
+
+    .fab {
+        border-radius: 50%;
+        /* background-color: #fe989c; */
+        background-color: #193381;
+        box-shadow: 0 8px 16px 1px #C9D6FC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 52px;
+        height: 52px;
+        font-weight: bold;
+        font-size: 22px;
+        color: #c9d6fc;
+        position: absolute;
+        transform: translate(0, -30%);
+    }
+
+    .is--active {
+        color: #193381;
+        border-top: 3px solid #193381;
+    }
+    {% if request.resolver_match.url_name == 'store' %}
+    @media (max-width: 767px) {
+        #main1{
+            margin-top: 63px;
+        }
+    }
+    {% endif %}
+</style>
+</head>
+
+<body>
+    <nav class="d-none d-md-block navbar navbar-expand-md navbar-light px-1 bg-white fixed-top w-100">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'myapp/images/logo-black.svg' %}" alt="" style="height:36px;">
+            </a>
+            <!--<a href="{% url 'home' %}" class="logo-text navbar-brand">Lilo</a>-->
+
+            <form class="m-auto search-input-form" action="" method="post">
+                {% csrf_token %}
+                <input type="text" class="w-100 border-0 px-3 search-input-1" placeholder="Search..." style="height: 38px; background-color: #ecf0f4; border-radius: 10px;" id="search-md" name="search-input" {% if search_input %}value="{{search_input}}"{% endif %}>
+                <div class="bg-white my-round sug-box">
+                    <div class="d-block sug-href" style="height: 10px;"></div>
+                    <input type="text" class="w-100 px-3 search-input-2 rounded" placeholder="Search..." style="height: 38px; border: 0;">
+                    <hr style="margin: 1px; background-color: #dee2e6; opacity: 1">
+                    <div class="sug-box-list"></div>
+                    <div class="d-block sug-href" style="height: 10px;"></div>
+                </div>
+            </form>
+
+            <ul class="navbar-nav mb-2 mb-md-0" style="font-weight: bold;">
+                <!--{% if request.resolver_match.url_name != 'store' %}-->
+                <!--<button class="round-40 px-3 mx-2 border-0 text-secondary bg-dark-gray" id="btn-md-close-map" onclick="closeMap()" style="outline: transparent; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">-->
+                <!--    Home-->
+                <!--</button>-->
+                <!--<button class="round-40 px-3 mx-2 border-0" id="btn-md-open-map" onclick="openMap()" style="outline: transparent; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">-->
+                <!--    Map-->
+                <!--</button>-->
+                <!--{% else %}-->
+                <!--<li class="nav-item mx-2">-->
+                <!--    <a class="nav-link px-3 {% if request.resolver_match.url_name == 'home' %}text-secondary bg-dark-gray{% endif %}" href="{% url 'home' %}" style="white-space:nowrap">Home</a>-->
+                <!--</li>-->
+                <!--{% endif %}-->
+                <!--<li class="nav-item mx-2">-->
+                <!--    {% if user.is_authenticated %}-->
+                <!--    <a class="nav-link px-3 {% if request.resolver_match.url_name == 'store' %}bg-dark-gray text-secondary{% endif %}" href="{% url 'store' %}" style="white-space:nowrap">Profile</a> {% else %}-->
+                <!--    <a class="nav-link px-3" href="{% url 'sign-in' %}" style="white-space:nowrap">Sign In</a> {% endif %}-->
+                <!--</li>-->
+
+                <button class="round-40 px-3  py-2 mx-2 border-0 text-secondary bg-dark-gray" id="btn-md-close-map" onclick="closeMap()" style="outline: transparent; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    Home
+                </button>
+                <button class="round-40 px-3 mx-2 border-0" id="btn-md-open-map" data-bs-toggle="modal" data-bs-target="#mapModal" style="outline: transparent; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    Map
+                </button>
+                <button class="round-40 px-3 mx-2 border-0" data-bs-toggle="modal" data-bs-target="#exampleModal" style="outline: transparent; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    Saved
+                </button>
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-- top sm navbar -->
+    {% if request.resolver_match.url_name != 'post' %}
+    <div class="d-flex d-md-none bg-white py-4 px-3" style="align-items: center; justify-content: center;">
+        <div class="d-flex" style="width: 20%; justify-content: start; align-items: center;">
+            {% if request.resolver_match.url_name == 'home' %}
+            <img class="" src="{% static 'myapp/images/logo-black.svg' %}" alt="" style="height: 32px; width: auto;">
+
+            {% else %}
+            <div class="d-flex" style="align-items: center; justify-content: flex-start;">
+                <button class="d-flex bg-white d-shadow back" style="align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px;">
+                    <i class="icon-copy ion-arrow-left-c"></i>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex" style="width: 80%; justify-content: flex-end; align-items: center;">
+            <div class="d-flex px-4" id="search-box-sm" style="border-radius: 14px; background-color: rgb(244, 246, 252); max-width: 696px; width: 100%;">
+                <div class="d-flex" style="justify-content: center; align-items: center;"><i class="ti-search"></i></div>
+                <input type="text" id="search-sm" data-bs-toggle="modal" data-bs-target="#sugModal" class="border-0 w-100 px-3s" placeholder="Search..." name="search-input" style="height: 48px; background-color: transparent; ">
+            </div>
+        </div>
+    </div>
+    <div class="d-md-none d-none bg-white {% if request.resolver_match.url_name == 'store' %}fixed-top{% endif %}">
+        <div class="d-flex py-2" href="#" style="justify-content: center;">
+            <!-- style="background-color: #fcd9a9;" -->
+            <div class="d-flex px-2 py-1 rounded">
+                <a class="d-flex" href="{% url 'home' %}" style="justify-content: center; align-items: center;">
+                    <img src="{% static 'myapp/images/logo-black.svg' %}" alt="" style="height:30px;">
+                </a>
+                <!--<a class="text-dark logo-text p-0" href="{% url 'home' %}" style="font-size: 24px;">Lilo</a>-->
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="search-bar-sm shadow-sm {% if request.resolver_match.url_name == 'home' %}d-none {% elif request.resolver_match.url_name == 'search' %}d-none{% elif request.resolver_match.url_name == 'store' %}d-none{% endif %} d-md-none bg-white {% if request.resolver_match.url_name != 'post' %}sticky-top{% else %}fixed-top{% endif %} py-2"  {% if request.resolver_match.url_name == 'post' %}style="display: none;"{% endif %}>
+        <div class="container-fluid">
+            <form class="m-auto px-1 search-input-form" action="" method="post">
+                {% csrf_token %}
+                <div class="d-flex px-3 border-0 bg-light" id="search-box-sm" style="border-radius: 12px;">
+                    <div class="d-none" style="justify-content: center; align-items: center;">
+                        <img id="logo-icon-input" src="{% static 'myapp/images/box.svg' %}" alt="" style="height: 30px; width: 30px; float: left; display: none;">
+                    </div>
+                    <div class="circle-btn"><i class="circle-btn-item ti-search"></i></div>
+                    <input type="text" class="border-0 px-3" placeholder="Search..." id="search-sm" name="search-input" {% if search_input %}value="{{search_input}}"{% endif %} style="height: 38px; width: calc(100%); background-color: transparent">
+
+                    <div class="circle-btn"><i class="circle-btn-item ti-location-pin"></i></div>
+                </div>
+                <div class="bg-white my-round sug-box">
+                    <div class="d-block sug-href" style="height: 10px;"></div>
+                    <input type="text" class="w-100 px-3 search-input-2 rounded" placeholder="What are you looking for ?" style="height: 38px; border: 0;">
+                    <hr style="margin: 1px; background-color: #dee2e6; opacity: 1">
+                    <div class="sug-box-list"></div>
+                    <div class="d-block sug-href" style="height: 10px;"></div>
+                </div>
+            </form>
+
+            <a href="#" class="p-2 d-none" onclick="openNav()">
+                <i class="dw dw-menu"></i>
+            </a>
+            </button>
+        </div>
+    </div>
+    {% if request.resolver_match.url_name != 'post' %}<div class="px-3 h4">For You</div>{% endif %}
+    <!-- bottom sm navbar -->
+    <div class="d-md-none d-none bg-white shadow" style="font-size: 16px; border-radius: 40px; position: fixed; bottom: 16px; left: 50%; z-index: 2; transform: translate(-50%, 0); box-shadow: 0 0 28px  rgb(0 0 0 / 8%);">
+        <button class="text-secondary primary-colo text-whit circle-btn m-1 bg-dark-gra bg-primar" onclick="closeMap()" id="btn-sm-close-map" style="background-color: #f5f6ff;"><i class="ion-hom ti-home circle-btn-item"></i></button>
+        <button class="text-secondary primary-colo text-primar circle-btn m-1" data-bs-toggle="modal" data-bs-target="#mapModal" id="btn-sm-open-map" style="colo: #80fd6d"><i class="ion-android-pi ti-location-pin circle-btn-item"></i></button>
+        <button class="text-secondary primary-colo text-primar circle-btn m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" style="colo: #fd6d80"><i class="fa fa-bookmark-o circle-btn-item"></i></button>
+
+    </div>
+    <div class="d-flex d-md-none d-b-2 bg-white shadow fixed-bottom w-100 border-top px-4" style="font-size: 16px; left: 50%; z-index: 2; transform: translate(-50%, 0); box-shadow: 0 0 28px  rgb(0 0 0 / 8%); font-size: 20px;">
+        <div class="w-100"><button class="text-dark circle-btn m-auto my-2" onclick="closeMap()" id="btn-sm-close-map"><i class="ti-layout-grid2-alt circle-btn-item"></i></button></div>
+        <div class="w-100"><button class="text-secondar circle-btn m-auto my-2" data-bs-toggle="modal" data-bs-target="#mapModal" id="btn-sm-open-map" style="colo: #80fd6d; color: #ccc"><i class="ion-android-pi ti-location-pin circle-btn-item"></i></button></div>
+        <div class="w-100"><button class="text-secondar circle-btn m-auto my-2" data-bs-toggle="modal" data-bs-target="#exampleModal" style="colo: #fd6d80; color: #ccc;"><i class="fa fa-bookmark-o circle-btn-item"></i></button></div>
+
+    </div>
+    <!--fab-->
+    <div class="d-md-none d-none d-bottom d-flex" style="align-items: center;">
+        <div class="tab tab--left d-flex">
+            <button class="m-auto h-100 is--active" id="btn-md-close-map" onclick="closemodelMap()" style="outline: transparent;">
+            <!-- <span class="icon-copy ti-layout-grid2"></span> -->
+            <span class="icon-copy ti-layout-grid2-alt"></span>
+            </button>
+        </div>
+        <div class="tab tab--fab d-flex">
+            <div class="top d-flex">
+                <button class="fab border-0" data-bs-toggle="modal" data-bs-target="#exampleModal" style="outline: transparent;">
+                    <i class="icon-copy ion-location"></i>
+                </button>
+            </div>
+
+        </div>
+        <div class="tab  tab--right d-flex">
+            <button class="h-100 border-0" data-bs-toggle="modal" data-bs-target="#exampleModal" style="outline: transparent;">
+            <!--<i class="ti-location-pin"></i>-->
+            <i class="fa fa-heart"></i>
+           </button>
+        </div>
+
+
+    </div>
+    <main>
+        <div id="main1" class="py-2 px-3" style="border-radius: 32px;">
+            {% block main %}
+
+            {% endblock %}
+
+            <div class="grid">
+                {% for item in items %}
+                <div class="grid-item">
+
+                        {% if item.is_ad %}
+                    <div class="card shadow-s d-shadow border" style="padding: 0px;">
+
+                        <a href="{% url 'post' item.id %}">
+                            <div class="px-1 text-primary bg-light-blue ad-block shadow-sm rounded m-2" style="position: absolute;"><small>Ad</small></div>
+                            <img class="bd-placeholder-img card-img-top" src="{% if item.img %}{{item.img.url}}{% else %}{{item.img_url}}{% endif %}" alt="">
+
+                        </a>
+                    </div>
+                        {% else %}
+                    <div class="card d-shado">
+                        <!--like btn-->
+                        <button class="d-non like-btn circle-btn m-2 id-{{item.id}}" id="{{item.id}}">
+                            <i class="like-btn-icon fa fa-bookmark-o circle-btn-item text-whit"></i>
+                        </button>
+                        <a href="{% url 'post' item.id %}">
+                            <img class="bd-placeholder-img card-img-top rounded-0" src="{% if item.img %}{{item.img.url}}{% else %}{{item.img_url}}{% endif %}" alt="">
+                            <div class="card-body d-none">
+                                <div class="d-flex">
+                                <div class='text-dark h6'>{{item.title|truncatewords:2}}</div>
+                                <div class="d-none circle-btn"><i class="circle-btn-item fa fa-heart"></i></div>
+                                </div>
+                                <p class="card-text d-none text-secondary">{{item.title|truncatewords:7}}</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="px-3 d-none mb-3"><i class="fa fa-bookmark-o"></i></div>
+                        {% endif %}
+
+
+                </div>
+                {% endfor %}
+            </div>
+            {% if items.has_next %}
+            <!--<div class="pagination">-->
+                <a class="pagination__next" href="?page={{ items.next_page_number }}"></a>
+                <div class="justify-content-center" style="display: flex; margin-bottom: 70px;">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            <!--</div>-->
+            {% else %}
+            <!--<div class="pagination">-->
+                <a class="pagination__next" href="javascript(0);"></a>
+            <!--</div>-->
+            {% endif %}
+        </div>
+        <div id="main2" style="height:0">
+            <div id="mp" style="height:0"></div>
+        </div>
+        <!-- savedModal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="-webkit-backdrop-filter: blur(2px)">
+          <div class="modal-dialog modal-lg m-0" style="">
+            <div class="modal-content" style="height: 100vh;">
+              <div class="modal-header">
+                <div class="h5 modal-title text-secondary" id="exampleModalLabel" style="">Saved Products</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-1">
+                    <div class="grid" id="modal-grid">
+                    </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- mapModal -->
+        <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" style="">
+            <div class="modal-content" style=" background-color: rgba(255,255,255,0.7);">
+              <div class="modal-header">
+                <div class="h5 modal-title" id="exampleModalLabel" style="color: rgb(36,14,136);">Map</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-1" style="height:60vh">
+                    <div id="map" style="height: 100%; width: 100%"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </main>
+
+    <script src="{% static 'myapp\js\jquery.min.js' %} "></script>
+    <script src="{% static 'myapp/assets/dist/js/bootstrap.bundle.min.js' %} "></script>
+    <!--<script src="{% static 'myapp\js\jquery.waypoints.min.js' %} "></script>-->
+    <!--<script src="{% static 'myapp\js\infinite.min.js' %} "></script>-->
+    <script src="{% static 'myapp\custom-js\core.js' %}"></script>
+
+    <script src="{% static 'myapp\custom-js\masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'myapp\custom-js\infinite-scroll.pkgd.min.js' %}"></script>
+    <script src="{% static 'myapp\custom-js\imagesloaded.pkgd.min.js' %}"></script>
+    {% block scripts %}{% endblock %}
+
+    <script>
+        $(document).ready(function() {
+            $('.grid').imagesLoaded()
+                .always(function(instance) {
+                    console.log('all images loaded');
+                })
+                .done(function(instance) {
+                    console.log('all images successfully loaded');
+                    var elem = document.querySelector('.grid');
+                    var msnry = new Masonry(elem, {
+                        // options
+                        itemSelector: '.grid-item',
+                        columnWidth: '.grid-item',
+                        percentPosition: true,
+                    });
+                    let infScroll = new InfiniteScroll(elem, {
+                        // options
+                        path: '.pagination__next',
+                        append: '.grid-item',
+                        history: false,
+                        outlayer: msnry,
+                        // hideNav: '.pagination',
+                        // status: '.page-load-status',
+                    });
+                    // infScroll.on( 'last', function( body, path ) {
+                    //     console.log('h');
+                    // });
+                })
+                .fail(function() {
+                    console.log('all images loaded, at least one is broken');
+                })
+                .progress(function(instance, image) {
+                    var result = image.isLoaded ? 'loaded' : 'broken';
+                    // console.log('image is ' + result + ' for ' + image.img.src);
+                });
+        });
+    </script>
+    <script>
+        $(".back").click(function(){
+            window.history.back();
+        })
+        function truncate(str, no_words) {
+            return str.split(" ").splice(0,no_words).join(" ");
+        }
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoicHJpczEiLCJhIjoiY2tqd2U5dnN2MGUwdjJwbWx0NDZxaWJqcyJ9.Zvu_Xejr42bcumLw069pqw';
+        var monument = [39.25, -6.77];
+        var map = new mapboxgl.Map({
+            container: 'map',
+            //dark-v10 light-v10 streets-v11 outdoors-v11
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: monument,
+            zoom: 9,
+        });
+
+        var zoomThreshold = 7;
+
+        map.scrollZoom.enable();
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true
+            })
+        );
+        // for (i = 1; i <= 9; i++) {
+        //     if (i == 1) {
+        //         // create the marker
+        //         new mapboxgl.Marker(document.getElementById("marker" + i))
+        //             .setLngLat(monument)
+        //             .addTo(map);
+        //     }else{
+        //         // create the marker
+        //         new mapboxgl.Marker(document.getElementById("marker" + i))
+        //             .setLngLat([30 + 0.1 * Math.floor(Math.random() * 10), 50 + 0.1 * i])
+        //             .addTo(map);
+        //     }
+
+        // };
+
+        map.on('zoom', function () {
+            console.log(map.getZoom())
+            // if (map.getZoom() < zoomThreshold) {
+            //     for (i = 1; i <= 4; i++) {
+            //         document.getElementById("marker" + i).style.display = 'none';
+            //     }
+            // } else {
+            //     for (i = 1; i <= 4; i++) {
+            //         document.getElementById("marker" + i).style.display = 'block';
+            //     }
+            // }
+        });
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+              } else {
+                var msg = "Geolocation is not supported by this browser.";
+                alert(msg)
+              }
+            }
+
+        function showPosition(position) {
+          console.log("Latitude: " + position.coords.latitude +
+          "<br>Longitude: " + position.coords.longitude)
+        }
+        map.on('load', function () {
+            // getLocation();
+
+        });
+        $('#mapModal').on('shown.bs.modal', function () {
+            map.resize()
+        })
+        function openMap() {
+            $("#main2").width("100vw");
+            $("#main2").css({
+                "height": "calc(100vh - 63px)"
+            });
+            $("#map").width("100vw");
+            $("#map").css({
+                "height": "calc(100vh - 63px)"
+            });
+
+            map.resize();
+
+            $('#main1').fadeOut();
+
+            closeMapBtn = $("#btn-sm-close-map")
+            openMapBtn = $("#btn-sm-open-map")
+
+            closeMapBtn.removeClass("bg-dark-gray")
+            openMapBtn.addClass("bg-dark-gray")
+
+            closeMdMapBtn = $("#btn-md-close-map")
+            openMdMapBtn = $("#btn-md-open-map")
+
+            closeMdMapBtn.removeClass("bg-dark-gray text-secondary")
+            openMdMapBtn.addClass("bg-dark-gray text-secondary")
+
+            $.ajax({
+                url: "{% url 'get-coord' %}",
+                data: {},
+                success: function(data) {
+                    // $("body").html(data)
+                    console.log(data.length);
+                    for (let item in data) {
+                        content = [
+                            '<div class="d-flex m-0" style="width: auto;">',
+                            '<a href="post/' + data[item]['id'] + '/" class="h-100"><img class="h-100" src="' + data[item]['img'] + '" style="width: auto;">',
+                            '<div class="bg-white h-100 px-2 d-none d-md-block" style="width: auto; overflow:hidden;">',
+                            '<div class="text-secondary">' + truncate(data[item]['title'], 9) + '</div>',
+                            '<div class="text-center">',
+                            '<a href="post/' + data[item]['id'] + '/" class="text-primary" style="text-decoration: underline;">',
+                            '<span class="badge text-primary bg-light-blue my-round">View</span>',
+                            '</a>',
+                            '</div>',
+                            '</div>',
+                            '</a>',
+                            '</div>',
+                        ].join('\n')
+                        var elem = document.createElement('div');
+                        elem.id = 'marker' + item
+                        elem.innerHTML = content
+                        elem.setAttribute("class", "tutorial-component down my-shadow marker")
+                            // $("#marker" + item).addClass("tutorial-component down my-shadow marker")
+                            // document.getElementById("marker" + item)
+                        var coord = [39 + 0.1 * Math.floor(Math.random() * 10), -6 + 0.1 * item]
+                        if (item == 1) {
+                            coord = monument
+                        }
+                        new mapboxgl.Marker(elem)
+                            .setLngLat(coord)
+                            .addTo(map);
+
+                    }
+
+                }
+            });
+
+            $.ajax({
+                url: "{% url 'map-state' %}",
+                data: {
+                    mapState: "open"
+                }
+            });
+        }
+
+        function closeMap() {
+            $('#main1').fadeIn();
+
+            $("#main2").width(0);
+            $("#main2").height(0);
+            $("#map").width(0);
+            $("#map").height(0);
+
+            $(".marker").remove();
+
+            closeSmMapBtn = $("#btn-sm-close-map")
+            openSmMapBtn = $("#btn-sm-open-map")
+
+            closeSmMapBtn.addClass("bg-dark-gray")
+            openSmMapBtn.removeClass("bg-dark-gray")
+
+            closeMdMapBtn = $("#btn-md-close-map")
+            openMdMapBtn = $("#btn-md-open-map")
+
+            closeMdMapBtn.addClass("bg-dark-gray  text-secondary")
+            openMdMapBtn.removeClass("bg-dark-gray text-secondary")
+
+            $.ajax({
+                url: "{% url 'map-state' %}",
+                data: {
+                    mapState: "close"
+                }
+            });
+        }
+    </script>
+    <script>
+        function truncate(str, no_words) {
+            return str.split(" ").splice(0,no_words).join(" ");
+        }
+        // normal scripts
+        $(document).ready(function() {
+            $.ajax({
+                url: "{% url 'like_view' %}",
+                data: {},
+                success: function(likedItems){
+                    if ($.isArray(likedItems)){
+                        for (let item in likedItems) {
+                            var itemId = likedItems[item]['id']
+                            console.log(itemId)
+
+                            content = [
+                                '<div class="grid-item">',
+                                    '<div class="card d-shadow border-0" style="padding: 0;">',
+                                        '<button class="like-btn circle-btn m-2 id-'+itemId+'">',
+                                            '<i class="like-btn-icon fa fa-bookmark-o circle-btn-item"></i>',
+                                        '</button>',
+                                        '<a href="/post/'+itemId+'/">',
+                                            '<img class="bd-placeholder-img card-img-top" src="'+ likedItems[item]['img']+'" alt="">',
+                                            '<div class="card-body p-2 d-none">',
+                                                '<p class="text-dark mb-1"><b>'+truncate(likedItems[item]['title'],2)+'</b></p>',
+                                                '<p class="card-text text-secondary d-none">'+truncate(likedItems[item]['title'], 10)+'</p>',
+                                            '</div>',
+                                        '</a>',
+                                    '</div>',
+                                '</div>'].join('\n')
+
+                            $('#modal-grid').append(content);
+
+                            $('.id-'+itemId).children('.like-btn-icon').removeClass('fa-bookmark-o').addClass('fa-bookmark')
+                            $('.id-'+itemId).val('liked')
+                            console.log($('.id-'+itemId).val())
+                        }
+
+
+
+                    }
+                    console.log(likedItems)
+                }
+            });
+
+            $( "#exampleModal" ).on('shown.bs.modal', function(){
+                var elem = document.querySelector('#modal-grid');
+                var msnry = new Masonry(elem, {
+                    // options
+                    itemSelector: '.grid-item',
+                    columnWidth: '.grid-item',
+                    percentPosition: true,
+                });
+            });
+
+            $("body").on('click', '.like-btn, .like-btn-item', function(){
+                if ($(this).children('.like-btn-icon').hasClass('fa-bookmark-o')){
+                    $(this).children('.like-btn-icon').removeClass('fa-bookmark-o').addClass('fa-bookmark');
+                    $(this).val('liked');
+                }else{
+                    $(this).children('.like-btn-icon').removeClass('fa-bookmark').addClass('fa-bookmark-o');
+                    $(this).val('not-liked');
+                }
+                var classes = $(this).attr('class')
+                for (var classItem of classes.split(' ')){
+                    if (classItem.includes('id-')){
+                        var id = classItem.replace('id-','')
+                    }
+                }
+                $.ajax({
+                        url: "{% url 'like_view' %}",
+                        data: {
+                            buttonValue: $(this).val(),
+                            buttonId: id,
+
+                        },
+                        success: function(data) {
+
+                            console.log(data)
+                        }
+                })
+
+            });
+
+
+            if ($(window).width() < 768) {
+                var searchInput = $("#search-sm")
+
+                // width of sug box basing on width of input
+                $(".sug-box").innerWidth($("#search-box-sm").innerWidth() + 2);
+            } else {
+                var searchInput = $("#search-md")
+                    // width of sug box basing on width of input
+                $(".sug-box").innerWidth(searchInput.innerWidth() + 2);
+            }
+
+            $("input").attr("autocomplete", "off")
+
+            // show sug-box on search input focus
+            searchInput.focus(function() {
+
+                $(".sug-box").show();
+                var searchInput2 = $(".search-input-2:visible")
+                searchInput2.focus();
+            });
+
+
+            // retrieve suggestions through jquery
+            $(".search-input-2").keyup(function(searchInput) {
+
+                var searchinput = $(this).val();
+
+                $.ajax({
+                    url: "{% url 'load-data' %}",
+                    data: {
+                        'searchinput': searchinput,
+                    },
+                    success: function(data) {
+                        $(".sug-box-list").html(data)
+                        if (data == '') {
+                            $(".sug-box").hide()
+                        }
+                    }
+                });
+            });
+
+            // show nav on scroll
+            $(window).scroll(function(e) {
+                if ($(window).width() < 768) {
+                    if ($(this).scrollTop() > 60) {
+                        $("#logo-icon-input").show();
+                    } else {
+                        $("#logo-icon-input").hide();
+
+                    }
+                }
+            });
+
+
+            // change width on window resize
+            $(window).resize(function() {
+                if (searchInput.is(":hidden")) {
+                    $(".sug-box").hide();
+                    // location.reload(true);
+                } else {
+                    if (searchInput.attr("id") == "search-md") {
+                        var width = $("#search-md").innerWidth() + 2;
+                    } else {
+                        var width = $("#search-box-sm").innerWidth() + 2;
+                    }
+                    $(".sug-box").width(width);
+
+                }
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

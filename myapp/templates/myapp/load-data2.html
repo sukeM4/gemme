@@ -1,0 +1,27 @@
+{% load static %}
+<style>
+    .a-link:hover {
+        background-color: #EEEEEE;
+    }
+
+    .a-link {
+        border: 0;
+        text-align: left;
+    }
+
+    .a-link:focus {
+        outline: 0;
+    }
+</style> {% if items %} {% for item in items %}
+
+<button class="d-block w-100 a-link sug-href p-1 px-3 border-bottom text-truncate">{{item.title}}</button> {% endfor %} {% endif %}
+<script>
+    $(document).ready(function() {
+        $(".a-link").click(function() {
+            var text = $(this).text();
+            $("input[name='search-input']").val(text);
+            $(".search-input-form:visible").submit();
+
+        })
+    })
+</script>
